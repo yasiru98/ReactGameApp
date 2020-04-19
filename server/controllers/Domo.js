@@ -27,7 +27,7 @@ const choosePage = (req,res) =>{
 
 
 const makeDomo = (req, res) => {
-    if(req.body.score == 0 ){
+    if(req.body.score === "0" ){
         return res.status(400).json({error: 'RAWR! Play the game first'});
     }
     else if(!req.body.name || !req.body.age){
@@ -73,7 +73,7 @@ const getDomos = (request, response) => {
 };
 
 const getAll = (request, response) => {
-    const req = request;
+   
     const res = response;
 
     return Domo.DomoModel.find((err,docs) => {
