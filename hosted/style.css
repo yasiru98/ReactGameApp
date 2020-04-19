@@ -189,6 +189,15 @@ nav:nth-child(1) {
     transform: rotate(330deg);
 }
 
+#Alldomos {
+    width: 40%;
+    min-width: 400px;
+    border: 2px solid #55acee;
+    border-radius: 4px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
 #domos {
     width: 40%;
     min-width: 400px;

@@ -11,8 +11,11 @@ var handleDomo = function handleDomo(e) {
     return false;
   }
 
-  sendAjax('POST', $("#domoForm").attr("action"), $("#domoForm").serialize(), function () {
+  $("#domoScore").val = globalVariable.score;
+  sendAjax('POST', $("#domoForm").attr("action"), $("#domoForm").serialize() + "&score=".concat(globalVariable.score), function () {
     loadDomosFromServer();
+    loadAllDomosFromServer();
+    console.log(globalVariable.score);
   });
   return false;
 };
@@ -31,14 +34,14 @@ var DomoForm = function DomoForm(props) {
       id: "domoName",
       type: "text",
       name: "name",
-      placeholder: "Domo Name"
+      placeholder: "Your Name"
     }), /*#__PURE__*/React.createElement("label", {
       htmlFor: "age"
     }, "Age: "), /*#__PURE__*/React.createElement("input", {
       id: "domoAge",
       type: "text",
       name: "age",
-      placeholder: "Domo Age"
+      placeholder: "Your Age"
     }), /*#__PURE__*/React.createElement("input", {
       type: "hidden",
       name: "_csrf",
@@ -46,7 +49,7 @@ var DomoForm = function DomoForm(props) {
     }), /*#__PURE__*/React.createElement("input", {
       className: "makeDomoSubmit",
       type: "submit",
-      value: "Make Domo"
+      value: "Submit Score"
     }))
   );
 };
@@ -57,7 +60,7 @@ var DomoList = function DomoList(props) {
         className: "domoList"
       }, /*#__PURE__*/React.createElement("h3", {
         className: "emptyDomo"
-      }, "No Domos yet"))
+      }, "No Scores yet"))
     );
   }
 
@@ -73,7 +76,9 @@ var DomoList = function DomoList(props) {
         className: "domoName"
       }, " Name: ", domo.name), /*#__PURE__*/React.createElement("h3", {
         className: "domoAge"
-      }, " Age: ", domo.age))
+      }, " Age: ", domo.age), /*#__PURE__*/React.createElement("h3", {
+        className: "domoScore"
+      }, " Score: ", domo.score))
     );
   });
   return (/*#__PURE__*/React.createElement("div", {
@@ -90,6 +95,14 @@ var loadDomosFromServer = function loadDomosFromServer() {
   });
 };
 
+var loadAllDomosFromServer = function loadAllDomosFromServer() {
+  sendAjax('GET', '/getAll', null, function (data) {
+    ReactDOM.render( /*#__PURE__*/React.createElement(DomoList, {
+      domos: data.domos
+    }), document.querySelector("#Alldomos"));
+  });
+};
+
 var setup = function setup(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(DomoForm, {
     csrf: csrf
@@ -97,7 +110,11 @@ var setup = function setup(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(DomoList, {
     domos: []
   }), document.querySelector("#domos"));
+  ReactDOM.render( /*#__PURE__*/React.createElement(DomoList, {
+    domos: []
+  }), document.querySelector("#Alldomos"));
   loadDomosFromServer();
+  loadAllDomosFromServer();
 };
 
 var getToken = function getToken() {

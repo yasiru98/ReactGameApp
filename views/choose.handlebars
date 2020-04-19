@@ -10,30 +10,31 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.6.2/remarkable.min.js"></script>
   <link rel="shortcut icon" href="/assets/img/favicon.png"/>
   <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
-
-  <script type="text/javascript" src="/assets/phaser.min.js"></script>
-  <script type="text/javascript" src="/assets/flappyMain.js"></script>
 </head>
-<body>
-  <nav><a href="/login"><img id="logo" src="/assets/img/face.png" alt="face logo"/></a>
+<body> 
+
+ <nav><a href="/login"><img id="logo" src="/assets/img/face.png" alt="face logo"/></a>
     <div class="navlink"><a href="/logout">Log out</a></div>
-    <div class="navlink"><a href="/choose"> &lsaquo; Back</a></div>
   </nav>
 
-  <div id="phaser-game"></div>
-  <section id="makeDomo">
+  <h1>Choose Your Game</h1>
+<div class="navlink"><a id="playFlappyButton" href="/maker">Play Flappy Box</a></div>
+  
+  <section style="display: none" id="makeDomo">
   </section>
-   <h1>Your Flappybox Scores</h1>
+  <h1>Your Flappybox Scores</h1>
   <section id="domos">
   </section>
-     <h1>Global Flappybox Scores</h1>
+  <h1>Global Flappybox Scores</h1>
     <section id="Alldomos">
   </section>
   <div id="domoMessage"><img id="speech" src="/assets/img/speech.png" alt="speech box"/>
     <h3><span id="errorMessage"></span></h3><img id="domo" src="assets/img/domo.png" alt="domo"/>
   </div>
-  
   <script src="/assets/bundle.js"></script>
+
+
+
 
 </body>
 </html>

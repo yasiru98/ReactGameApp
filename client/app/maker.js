@@ -1,3 +1,5 @@
+
+
 const handleDomo = (e) => {
     e.preventDefault();
 
@@ -8,8 +10,12 @@ const handleDomo = (e) => {
         return false;
     }
 
-    sendAjax('POST', $("#domoForm").attr("action"), $("#domoForm").serialize(), function(){
+    $("#domoScore").val = globalVariable.score;
+
+    sendAjax('POST', $("#domoForm").attr("action"), $("#domoForm").serialize()+`&score=${globalVariable.score}`, function(){
         loadDomosFromServer();
+        loadAllDomosFromServer();
+        console.log(globalVariable.score);
     });
 
     return false;
@@ -25,11 +31,11 @@ const DomoForm = (props) => {
             className="domoForm"
         >
             <label htmlFor="name">Name: </label>
-            <input id="domoName" type="text" name="name" placeholder="Domo Name"/>
+            <input id="domoName" type="text" name="name" placeholder="Your Name"/>
             <label htmlFor="age">Age: </label>
-            <input id="domoAge" type="text" name="age" placeholder="Domo Age"/>
+            <input id="domoAge" type="text" name="age" placeholder="Your Age" />
             <input type="hidden" name="_csrf" value={props.csrf} />
-            <input className="makeDomoSubmit" type="submit" value="Make Domo" />
+            <input className="makeDomoSubmit" type="submit" value="Submit Score" />
         </form>
     );
 };
@@ -38,7 +44,7 @@ const DomoList = function(props){
     if(props.domos.length === 0){
         return(
             <div className="domoList">
-                <h3 className="emptyDomo">No Domos yet</h3>
+                <h3 className="emptyDomo">No Scores yet</h3>
             </div>
         );
     }
@@ -49,6 +55,7 @@ const DomoList = function(props){
             <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" />
             <h3 className="domoName"> Name: {domo.name}</h3>
             <h3 className="domoAge"> Age: {domo.age}</h3>
+            <h3 className="domoScore"> Score: {domo.score}</h3>
             </div>
         );
     });
@@ -66,6 +73,16 @@ const loadDomosFromServer = () => {
             <DomoList domos={data.domos} />, document.querySelector("#domos")
         );
     });
+
+};
+
+const loadAllDomosFromServer = () => {
+    sendAjax('GET', '/getAll', null, (data) =>{
+        ReactDOM.render(
+            <DomoList domos={data.domos} />, document.querySelector("#Alldomos")
+        );
+    });
+
 };
 
 const setup = function(csrf) {
@@ -76,8 +93,11 @@ const setup = function(csrf) {
     ReactDOM.render(
         <DomoList domos={[]} />, document.querySelector("#domos")
     );
-    
+    ReactDOM.render(
+        <DomoList domos={[]} />, document.querySelector("#Alldomos")
+    );
     loadDomosFromServer();
+    loadAllDomosFromServer();
 
 }
 
