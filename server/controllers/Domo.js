@@ -113,7 +113,7 @@ if(userGame === "sviper"){
     return res.json({ domos: docs });
   });
 }
-
+return false
 };
 
 const getAll = (request, response) => {
