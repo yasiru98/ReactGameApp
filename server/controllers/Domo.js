@@ -129,7 +129,7 @@ const getAll = (request, response) => {
 
     return res.json({ domos: docs });
   });
-  return false
+  
 }
 if(userGame === "sviper"){
   return Sviper.SviperModel.find((err, docs) => {
