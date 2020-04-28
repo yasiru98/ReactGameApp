@@ -83,7 +83,7 @@ const makeDomo = (req, res) => {
     });
     return sviperPromise;
     }
-  
+  return false;
 };
 
 const getDomos = (request, response) => {
@@ -129,6 +129,7 @@ const getAll = (request, response) => {
 
     return res.json({ domos: docs });
   });
+  return false
 }
 if(userGame === "sviper"){
   return Sviper.SviperModel.find((err, docs) => {
@@ -140,7 +141,7 @@ if(userGame === "sviper"){
     return res.json({ domos: docs });
   });
 }
-
+return false
 };
 
 module.exports.makerPage = makerPage;
