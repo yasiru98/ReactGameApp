@@ -85,4 +85,3 @@ AccountModel = mongoose.model('Account', AccountSchema);
 
 module.exports.AccountModel = AccountModel;
 module.exports.AccountSchema = AccountSchema;
-

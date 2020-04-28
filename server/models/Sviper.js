@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const _ = require('underscore');
 
-let DomoModel = {};
+let SviperModel = {};
 
 const convertId = mongoose.Types.ObjectId;
 const setName = (name) => _.escape(name).trim();
 
-const DomoSchema = new mongoose.Schema({
+const SviperSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -41,23 +41,23 @@ const DomoSchema = new mongoose.Schema({
 
 });
 
-DomoSchema.statics.toAPI = (doc) => ({
+SviperSchema.statics.toAPI = (doc) => ({
   name: doc.name,
   age: doc.age,
   score: doc.score,
 });
 
-DomoSchema.statics.findByOwner = (ownerId, callback) => {
+SviperSchema.statics.findByOwner = (ownerId, callback) => {
   const search = {
     owner: convertId(ownerId),
   };
 
-  return DomoModel.find(search).select('name age score').lean().exec(callback);
+  return SviperModel.find(search).select('name age score').lean().exec(callback);
 };
 
-DomoSchema.statics.findAll = (callback) => DomoModel.find().select('name age score').lean().exec(callback);
+SviperSchema.statics.findAll = (callback) => SviperModel.find().select('name age score').lean().exec(callback);
 
-DomoModel = mongoose.model('Domo', DomoSchema);
+SviperModel = mongoose.model('Sviper', SviperSchema);
 
-module.exports.DomoModel = DomoModel;
-module.exports.DomoSchema = DomoSchema;
+module.exports.SviperModel = SviperModel;
+module.exports.SviperSchema = SviperSchema;

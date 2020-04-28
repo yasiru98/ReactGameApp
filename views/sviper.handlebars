@@ -10,31 +10,45 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.6.2/remarkable.min.js"></script>
   <link rel="shortcut icon" href="/assets/img/favicon.png"/>
   <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
-</head>
-<body> 
+<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet"> 
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.6.0/pixi.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.5/howler.js"></script>
 
- <nav><a href="/login"><img id="logo" src="/assets/img/face.png" alt="face logo"/></a>
+
+</head>
+<body>
+
+
+
+
+  <nav><a href="/login"><img id="logo" src="/assets/img/face.png" alt="face logo"/></a>
     <div class="navlink"><a href="/logout">Log out</a></div>
+    <div class="navlink"><a href="/choose"> &lsaquo; Back</a></div>
   </nav>
 
-  <h1>Choose Your Game</h1>
-<div class="navlink"><a id="playFlappyButton" href="/maker">Play Flappy Box</a></div>
-  <div class="navlink"><a id="playFlappyButton" href="/sviper">Play Sviper</a></div>
-  <section style="display: none" id="makeDomo">
+<div id="canvas-container"></div>
+  <section id="makeDomo">
   </section>
-  <h1>Your Flappybox Scores</h1>
+   <h1>Your Sviper Scores</h1>
   <section id="domos">
   </section>
-  <h1>Global Flappybox Scores</h1>
+     <h1>Global Sviper Scores</h1>
     <section id="Alldomos">
   </section>
   <div id="domoMessage"><img id="speech" src="/assets/img/speech.png" alt="speech box"/>
     <h3><span id="errorMessage"></span></h3><img id="domo" src="assets/img/domo.png" alt="domo"/>
   </div>
-  <script src="/assets/bundle.js"></script>
+  
 
 
 
+<script src="/assets/sviper/js/utilities.js"></script>
+
+<script src="/assets/sviper/js/loader.js"></script>
+<script src="/assets/sviper/js/main.js"></script>
+  
+<script src="/assets/bundle.js"></script>
 
 </body>
 </html>
