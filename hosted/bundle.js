@@ -1,5 +1,17 @@
 "use strict";
 
+var flappyGame = document.getElementById("flappy-game");
+var sviperGame = document.getElementById("sviper-game");
+var userGame = "";
+
+if (flappyGame != null) {
+  userGame = "flappy";
+}
+
+if (sviperGame != null) {
+  userGame = "sviper";
+}
+
 var handleDomo = function handleDomo(e) {
   e.preventDefault();
   $("#domoMessage").animate({
@@ -9,10 +21,11 @@ var handleDomo = function handleDomo(e) {
   if ($("#domoName").val() == '' || $("#domoAge").val() == '') {
     handleError("RAWR! All fields are required");
     return false;
-  }
+  } //$("#domoScore").val = globalVariable.score;
 
-  $("#domoScore").val = globalVariable.score;
-  sendAjax('POST', $("#domoForm").attr("action"), $("#domoForm").serialize() + "&score=".concat(globalVariable.score), function () {
+
+  console.log("flappyGame");
+  sendAjax('POST', "/maker", $("#domoForm").serialize() + "&score=".concat(globalVariable.score, "&game=").concat(userGame), function () {
     loadDomosFromServer();
     loadAllDomosFromServer();
     console.log(globalVariable.score);
@@ -25,7 +38,6 @@ var DomoForm = function DomoForm(props) {
       id: "domoForm",
       onSubmit: handleDomo,
       name: "domoForm",
-      action: "/maker",
       method: "POST",
       className: "domoForm"
     }, /*#__PURE__*/React.createElement("label", {
@@ -88,7 +100,7 @@ var DomoList = function DomoList(props) {
 };
 
 var loadDomosFromServer = function loadDomosFromServer() {
-  sendAjax('GET', '/getDomos', null, function (data) {
+  sendAjax('GET', "/getDomos?+&".concat(userGame), null, function (data) {
     ReactDOM.render( /*#__PURE__*/React.createElement(DomoList, {
       domos: data.domos
     }), document.querySelector("#domos"));
@@ -96,7 +108,7 @@ var loadDomosFromServer = function loadDomosFromServer() {
 };
 
 var loadAllDomosFromServer = function loadAllDomosFromServer() {
-  sendAjax('GET', '/getAll', null, function (data) {
+  sendAjax('GET', "/getAll?+&".concat(userGame), null, function (data) {
     ReactDOM.render( /*#__PURE__*/React.createElement(DomoList, {
       domos: data.domos
     }), document.querySelector("#Alldomos"));

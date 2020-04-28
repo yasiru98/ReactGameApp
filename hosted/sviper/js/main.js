@@ -49,7 +49,7 @@ function getRandom(min, max) {
 
 const app = new PIXI.Application(800,600);
 app.renderer.backgroundColor = 0x0080FF;
-let div = document.getElementById('canvas-container');
+let div = document.getElementById('sviper-game');
 div.appendChild(app.view);
 
 // constants
@@ -62,6 +62,7 @@ let storedScore = localStorage.getItem(scoreKey);
 let globalVariable={
     score: storedScore,
  };
+ console.log(storedScore);
 // aliases
 let stage;
 

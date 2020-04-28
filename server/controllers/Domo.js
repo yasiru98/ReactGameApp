@@ -50,7 +50,7 @@ const makeDomo = (req, res) => {
     score: req.body.score,
     owner: req.session.account._id,
   };
-
+  if(req.body.game === "flappy"){
   const newDomo = new Domo.DomoModel(domoData);
   const domoPromise = newDomo.save();
 
@@ -64,14 +64,35 @@ const makeDomo = (req, res) => {
     }
     return res.status(400).json({ err: 'An error occurred' });
   });
-
   return domoPromise;
+  }
+
+  if(req.body.game === "sviper"){
+    const newScore = new Sviper.SviperModel(domoData);
+    const sviperPromise = newScore.save();
+  
+    sviperPromise.then(() => res.json({ redirect: '/sviper' }));
+  
+    sviperPromise.catch((err) => {
+      console.log(err);
+  
+      if (err.code === 11000) {
+        return res.status(400).json({ err: 'Domo already exists.' });
+      }
+      return res.status(400).json({ err: 'An error occurred' });
+    });
+    return sviperPromise;
+    }
+  
 };
 
 const getDomos = (request, response) => {
   const req = request;
   const res = response;
-
+  let splitUrl = request.url.split('&');
+  let userGame = splitUrl[1];
+  console.log(userGame);
+  if(userGame === "flappy"){
   return Domo.DomoModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
@@ -80,11 +101,26 @@ const getDomos = (request, response) => {
 
     return res.json({ domos: docs });
   });
+}
+
+if(userGame === "sviper"){
+  return Sviper.SviperModel.findByOwner(req.session.account._id, (err, docs) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occurred' });
+    }
+
+    return res.json({ domos: docs });
+  });
+}
+
 };
 
 const getAll = (request, response) => {
   const res = response;
-
+  let splitUrl = request.url.split('&');
+  let userGame = splitUrl[1];
+  if(userGame === "flappy"){
   return Domo.DomoModel.find((err, docs) => {
     if (err) {
       console.log(err);
@@ -93,6 +129,18 @@ const getAll = (request, response) => {
 
     return res.json({ domos: docs });
   });
+}
+if(userGame === "sviper"){
+  return Sviper.SviperModel.find((err, docs) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occurred' });
+    }
+
+    return res.json({ domos: docs });
+  });
+}
+
 };
 
 module.exports.makerPage = makerPage;

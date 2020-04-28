@@ -1,5 +1,16 @@
 
 
+let flappyGame = document.getElementById("flappy-game");
+let sviperGame = document.getElementById("sviper-game");
+let userGame = "";
+if(flappyGame != null){
+    userGame = "flappy"
+}
+
+if(sviperGame != null){
+    userGame = "sviper"
+}
+
 const handleDomo = (e) => {
     e.preventDefault();
 
@@ -10,13 +21,19 @@ const handleDomo = (e) => {
         return false;
     }
 
-    $("#domoScore").val = globalVariable.score;
+    //$("#domoScore").val = globalVariable.score;
 
-    sendAjax('POST', $("#domoForm").attr("action"), $("#domoForm").serialize()+`&score=${globalVariable.score}`, function(){
+
+
+
+    console.log( "flappyGame");
+    sendAjax('POST', "/maker", $("#domoForm").serialize()+`&score=${globalVariable.score}&game=${userGame}`, function(){
         loadDomosFromServer();
         loadAllDomosFromServer();
         console.log(globalVariable.score);
     });
+    
+
 
     return false;
 };
@@ -26,7 +43,7 @@ const DomoForm = (props) => {
         <form id="domoForm"
             onSubmit={handleDomo}
             name="domoForm"
-            action="/maker"
+   
             method="POST"
             className="domoForm"
         >
@@ -68,7 +85,7 @@ const DomoList = function(props){
 };
 
 const loadDomosFromServer = () => {
-    sendAjax('GET', '/getDomos', null, (data) =>{
+    sendAjax('GET', `/getDomos?+&${userGame}`, null, (data) =>{
         ReactDOM.render(
             <DomoList domos={data.domos} />, document.querySelector("#domos")
         );
@@ -77,7 +94,7 @@ const loadDomosFromServer = () => {
 };
 
 const loadAllDomosFromServer = () => {
-    sendAjax('GET', '/getAll', null, (data) =>{
+    sendAjax('GET', `/getAll?+&${userGame}`, null, (data) =>{
         ReactDOM.render(
             <DomoList domos={data.domos} />, document.querySelector("#Alldomos")
         );
