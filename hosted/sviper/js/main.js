@@ -88,7 +88,7 @@ let paused = true;
 
 class Ship extends PIXI.Sprite{
     constructor(x=0,y=0){
-        let shipTexture = PIXI.Texture.fromImage('assets/sviper/images/spaceship.png');
+        let shipTexture = PIXI.Texture.fromImage('assets/sviper/images/SpaceShip.png');
         super();
         super.texture = shipTexture;
         this.anchor.set(.5,.5);
