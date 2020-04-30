@@ -13,6 +13,8 @@ const router = (app) => {
   app.get('/sviper', mid.requiresLogin, controllers.Domo.sviperPage);
   app.get('/choose', mid.requiresLogin, controllers.Domo.choosePage);
   app.post('/maker', mid.requiresLogin, controllers.Domo.make);
+  app.get('/changePass', mid.requiresLogin, controllers.Account.changePassPage);
+  app.post('/changePass', mid.requiresLogin, controllers.Account.changePass);
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
 };
 

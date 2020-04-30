@@ -6,10 +6,43 @@ const loginPage = (req, res) => {
   res.render('login', { csrfToken: req.csrfToken() });
 };
 
+const changePassPage = (req, res) => {
+  res.render('changepass', { csrfToken: req.csrfToken() });
+};
 
 const logout = (req, res) => {
   req.session.destroy();
   res.redirect('/');
+};
+
+const changePass = (request, response) => {
+  const req = request;
+  const res = response;
+
+  const password = `${req.body.newPass}`;
+  const password2 = `${req.body.newPass2}`;
+
+  if (!password || !password2) {
+    return res.status(400).json({ error: 'RAWR! All fields are required' });
+  }
+  if (password !== password2) {
+    return res.status(400).json({ error: 'Passwords do not match' });
+  }
+
+  return Account.AccountModel.generateHash(password, (salt, hash) => {
+ 
+    const updatePromise = Account.AccountModel.updateOne({ _id: req.session.account._id },
+      {
+        salt,
+        password: hash,
+      });
+
+
+      updatePromise.then(() => {
+        res.json({ redirect: '/choose' });
+      });
+  });
+
 };
 
 const login = (request, response) => {
@@ -89,3 +122,5 @@ module.exports.login = login;
 module.exports.logout = logout;
 module.exports.signup = signup;
 module.exports.getToken = getToken;
+module.exports.changePassPage = changePassPage;
+module.exports.changePass = changePass;

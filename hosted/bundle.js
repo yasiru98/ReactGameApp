@@ -1,5 +1,39 @@
 "use strict";
 
+var ChangePassForm = function ChangePassForm(props) {
+  return (/*#__PURE__*/React.createElement("form", {
+      id: "changePass",
+      onSubmit: console.log("pass"),
+      name: "changePass",
+      method: "POST",
+      className: "domoForm"
+    }, /*#__PURE__*/React.createElement("label", {
+      htmlFor: "newPass"
+    }, "New Password: "), /*#__PURE__*/React.createElement("input", {
+      className: "makeDomoSubmit",
+      type: "submit",
+      value: "Submit Score"
+    }))
+  );
+};
+
+var setup = function setup(csrf) {
+  ReactDOM.render( /*#__PURE__*/React.createElement(ChangePassForm, {
+    csrf: csrf
+  }), document.querySelector("#changePass"));
+};
+
+var getToken = function getToken() {
+  sendAjax('GET', '/getToken', null, function (result) {
+    setup(result.csrfToken);
+  });
+};
+
+$(document).ready(function () {
+  getToken();
+});
+"use strict";
+
 var flappyGame = document.getElementById("flappy-game");
 var sviperGame = document.getElementById("sviper-game");
 var userGame = "";

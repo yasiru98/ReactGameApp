@@ -10,9 +10,11 @@
   "scripts": {
     "buildLoginBundle": "babel ./client/login ./client/helper --presets @babel/preset-react --out-file ./hosted/loginBundle.js",
     "buildAppBundle": "babel ./client/app ./client/helper --presets @babel/preset-react --out-file ./hosted/bundle.js",
+    "buildPassBundle": "babel ./client/password ./client/helper --presets @babel/preset-react --out-file ./hosted/passbundle.js",
     "watchLoginBundle": "babel --watch ./client/login ./client/helper --presets @babel/preset-react --out-file ./hosted/loginBundle.js",
     "watchAppBundle": "babel --watch ./client/app ./client/helper --presets @babel/preset-react --out-file ./hosted/bundle.js",
-    "build": "npm run buildLoginBundle && npm run buildAppBundle",
+    "watchPassBundle": "babel --watch ./client/password ./client/helper --presets @babel/preset-react --out-file ./hosted/passbundle.js",
+    "build": "npm run buildLoginBundle && npm run buildAppBundle && npm run buildPassBundle",
     "nodemon": "nodemon --watch ./server ./server/app.js",
     "start": "node ./server/app.js",
     "pretest": "eslint ./server --fix",
