@@ -36,8 +36,8 @@ const choosePage = (req, res) => {//render choose.handlebars page
   });
 };
 
-
-const makeScore = (req, res) => {//validate and submit user's high score data to the correct game database
+//validate and submit user's high score data to the correct game database
+const makeScore = (req, res) => {
   if (req.body.score === '0') {
     return res.status(400).json({ error: 'RAWR! Play the game first' });
   }
