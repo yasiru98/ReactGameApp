@@ -1,15 +1,15 @@
 const models = require('../models');
 
-const { Domo } = models;
+const { Flappy } = models;
 const { Sviper } = models;
-const makerPage = (req, res) => {
-  Domo.DomoModel.findByOwner(req.session.account._id, (err, docs) => {
+const flappyPage = (req, res) => {
+  Flappy.FlappyModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occurred' });
     }
 
-    return res.render('app', { csrfToken: req.csrfToken(), domos: docs });
+    return res.render('flappy', { csrfToken: req.csrfToken(), domos: docs });
   });
 };
 
@@ -25,7 +25,7 @@ const sviperPage = (req, res) => {
 };
 
 const choosePage = (req, res) => {
-  Domo.DomoModel.findByOwner(req.session.account._id, (err, docs) => {
+  Flappy.FlappyModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occurred' });
@@ -36,7 +36,7 @@ const choosePage = (req, res) => {
 };
 
 
-const makeDomo = (req, res) => {
+const makeScore = (req, res) => {
   if (req.body.score === '0') {
     return res.status(400).json({ error: 'RAWR! Play the game first' });
   }
@@ -44,31 +44,37 @@ const makeDomo = (req, res) => {
     return res.status(400).json({ error: 'RAWR! Both name and age are required' });
   }
 
-  const domoData = {
-    name: req.body.name,
-    age: req.body.age,
+  if (req.body.name.trim().length < 4) {
+    return res.status(400).json({ error: 'RAWR! Name should be more than three characters' });
+  }
+  if (req.body.age.trim() > 99) {
+    return res.status(400).json({ error: 'RAWR! Enter a valid age' });
+  }
+  const scoreData = {
+    name: req.body.name.trim(),
+    age: req.body.age.trim(),
     score: req.body.score,
     owner: req.session.account._id,
   };
   if(req.body.game === "flappy"){
-  const newDomo = new Domo.DomoModel(domoData);
-  const domoPromise = newDomo.save();
+  const newScore = new Flappy.FlappyModel(scoreData);
+  const flappyPromise = newScore.save();
 
-  domoPromise.then(() => res.json({ redirect: '/maker' }));
+  flappyPromise.then(() => res.json({ redirect: '/flappy' }));
 
-  domoPromise.catch((err) => {
+  flappyPromise.catch((err) => {
     console.log(err);
 
     if (err.code === 11000) {
-      return res.status(400).json({ err: 'Domo already exists.' });
+      return res.status(400).json({ err: 'Score already exists.' });
     }
     return res.status(400).json({ err: 'An error occurred' });
   });
-  return domoPromise;
+  return flappyPromise;
   }
 
   if(req.body.game === "sviper"){
-    const newScore = new Sviper.SviperModel(domoData);
+    const newScore = new Sviper.SviperModel(scoreData);
     const sviperPromise = newScore.save();
   
     sviperPromise.then(() => res.json({ redirect: '/sviper' }));
@@ -86,20 +92,20 @@ const makeDomo = (req, res) => {
   return false;
 };
 
-const getDomos = (request, response) => {
+const getScores = (request, response) => {
   const req = request;
   const res = response;
   let splitUrl = request.url.split('&');
   let userGame = splitUrl[1];
   console.log(userGame);
   if(userGame === "flappy"){
-  return Domo.DomoModel.findByOwner(req.session.account._id, (err, docs) => {
+  return Flappy.FlappyModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occurred' });
     }
 
-    return res.json({ domos: docs });
+    return res.json({ scores: docs });
   });
 }
 
@@ -110,24 +116,24 @@ if(userGame === "sviper"){
       return res.status(400).json({ error: 'An error occurred' });
     }
 
-    return res.json({ domos: docs });
+    return res.json({ scores: docs });
   });
 }
 return false
 };
 
-const getAll = (request, response) => {
+const getAllScores = (request, response) => {
   const res = response;
   let splitUrl = request.url.split('&');
   let userGame = splitUrl[1];
   if(userGame === "flappy"){
-  return Domo.DomoModel.find((err, docs) => {
+  return Flappy.FlappyModel.find((err, docs) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occurred' });
     }
 
-    return res.json({ domos: docs });
+    return res.json({ scores: docs });
   });
   
 }
@@ -138,15 +144,15 @@ if(userGame === "sviper"){
       return res.status(400).json({ error: 'An error occurred' });
     }
 
-    return res.json({ domos: docs });
+    return res.json({ scores: docs });
   });
 }
 return false
 };
 
-module.exports.makerPage = makerPage;
+module.exports.flappyPage = flappyPage;
 module.exports.choosePage = choosePage;
 module.exports.sviperPage = sviperPage;
-module.exports.getDomos = getDomos;
-module.exports.getAll = getAll;
-module.exports.make = makeDomo;
+module.exports.getScores = getScores;
+module.exports.getAllScores = getAllScores;
+module.exports.makeScore = makeScore;

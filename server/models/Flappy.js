@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const _ = require('underscore');
 
-let DomoModel = {};
+let FlappyModel = {};
 
 const convertId = mongoose.Types.ObjectId;
 const setName = (name) => _.escape(name).trim();
 
-const DomoSchema = new mongoose.Schema({
+const FlappySchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -41,23 +41,23 @@ const DomoSchema = new mongoose.Schema({
 
 });
 
-DomoSchema.statics.toAPI = (doc) => ({
+FlappySchema.statics.toAPI = (doc) => ({
   name: doc.name,
   age: doc.age,
   score: doc.score,
 });
 
-DomoSchema.statics.findByOwner = (ownerId, callback) => {
+FlappySchema.statics.findByOwner = (ownerId, callback) => {
   const search = {
     owner: convertId(ownerId),
   };
 
-  return DomoModel.find(search).select('name age score').lean().exec(callback);
+  return FlappyModel.find(search).select('name age score').lean().exec(callback);
 };
 
-DomoSchema.statics.findAll = (callback) => DomoModel.find().select('name age score').lean().exec(callback);
+FlappySchema.statics.findAll = (callback) => FlappyModel.find().select('name age score').lean().exec(callback);
 
-DomoModel = mongoose.model('Domo', DomoSchema);
+FlappyModel = mongoose.model('Flappy', FlappySchema);
 
-module.exports.DomoModel = DomoModel;
-module.exports.DomoSchema = DomoSchema;
+module.exports.FlappyModel = FlappyModel;
+module.exports.FlappySchema = FlappySchema;

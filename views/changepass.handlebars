@@ -1,37 +1,35 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <title>DomoMaker</title>
-  <script crossorigin src="https://unpkg.com/react@15/dist/react.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+  <title>CyberGames</title>
+  <script src="https://unpkg.com/react@latest/umd/react.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@latest/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@material-ui/core@latest/umd/material-ui.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/babel-standalone@latest/babel.min.js" crossorigin="anonymous"></script>
   <script crossorigin src="https://unpkg.com/prop-types/prop-types.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.6.2/remarkable.min.js"></script>
+  <!-- "https://icons8.com/icons/set/controller">Game Controller favicon icon -->
   <link rel="shortcut icon" href="/assets/img/favicon.png"/>
   <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
 </head>
 <body> 
 
- <nav><a href="/login"><img id="logo" src="/assets/img/face.png" alt="face logo"/></a>
+  <!-- "https://icons8.com/icons/set/controller">Game Controller Nav bar icon -->
+  <nav><a href="/choose"><img id="logo" src="/assets/img/controller.png" alt="controller logo" /></a>
+    <div class="navlink"><a href="/choose"> Games</a></div>
     <div class="navlink"><a href="/logout">Log out</a></div>
-    <div class="navlink"><a href="/choose"> &lsaquo; Back</a></div>
   </nav>
-<h1>Change Password</h1>
 
-<section id="changePass">
-</section>
+  <div id="pageHeading"></div>
 
+ <div id="root">
 
+</div>
 
-
-  <div id="domoMessage"><img id="speech" src="/assets/img/speech.png" alt="speech box"/>
-    <h3><span id="errorMessage"></span></h3><img id="domo" src="assets/img/domo.png" alt="domo"/>
+  <div id="monsterMessage"><img id="speech" src="/assets/img/speech.png" alt="speech box" />
+    <h3><span id="errorMessage"></span></h3><img id="monster" src="assets/img/monster.png" alt="monster" />
   </div>
-  <script src="/assets/passbundle.js"></script>
-
-
-
-
+ <script src="/assets/passBundle.js"></script>
 </body>
 </html>

@@ -8,9 +8,9 @@ var mainState = {
     preload: function() { 
         // This function will be executed at the beginning     
         // That's where we load the images and sounds 
-        game.load.audio('jump', '/assets/jump.wav'); 
-        game.load.image('bird', '/assets/bird.png'); 
-        game.load.image('pipe', '/assets/pipe.png');
+        game.load.audio('jump', '/assets/flappy/jump.wav'); 
+        game.load.image('bird', '/assets/flappy/bird.png'); 
+        game.load.image('pipe', '/assets/flappy/pipe.png');
         this.score = 0;
         this.labelScore = game.add.text(20, 20, "0", 
         { font: "30px Arial", fill: "#ffffff" });  

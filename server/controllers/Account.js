@@ -28,6 +28,9 @@ const changePass = (request, response) => {
   if (password !== password2) {
     return res.status(400).json({ error: 'Passwords do not match' });
   }
+  if (password.length < 4 || password2.length < 4) {
+    return res.status(400).json({ error: 'Password must be more than three characters' });
+  }
 
   return Account.AccountModel.generateHash(password, (salt, hash) => {
  

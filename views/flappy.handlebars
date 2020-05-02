@@ -1,6 +1,7 @@
 <html lang="en">
+
 <head>
-  <meta charset="utf-8"/>
+  <meta charset="utf-8" />
   <title>CyberGames</title>
   <script src="https://unpkg.com/react@latest/umd/react.development.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/react-dom@latest/umd/react-dom.development.js"></script>
@@ -9,46 +10,47 @@
   <script crossorigin src="https://unpkg.com/prop-types/prop-types.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.6.2/remarkable.min.js"></script>
+
   <!-- "https://icons8.com/icons/set/controller">Game Controller favicon icon -->
-  <link rel="shortcut icon" href="/assets/img/favicon.png"/>
-  <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
+  <link rel="shortcut icon" href="/assets/img/favicon.png" />
+  <link rel="stylesheet" type="text/css" href="/assets/style.css" />
+
+  <script type="text/javascript" src="/assets/flappy/phaser.min.js"></script>
+  <script type="text/javascript" src="/assets/flappy/flappyMain.js"></script>
+
 </head>
-<body> 
+
+<body>
   <!-- "https://icons8.com/icons/set/controller">Game Controller Nav bar icon -->
   <nav><a href="/choose"><img id="logo" src="/assets/img/controller.png" alt="controller logo" /></a>
+    <div class="navlink"><a href="/choose"> &lsaquo; Back</a></div>
     <div class="navlink"><a href="/changePass">Change Password</a></div>
     <div class="navlink"><a href="/logout">Log out</a></div>
   </nav>
 
-
-<div id="heading">
-  <h1>Choose Your Game</h1>
-</div>
-
-
-<section id="gameChoose">
-
-</section>
-
-
-<div id="heading">
-  <h2>Global Leaderboards</h2>
-</div>
-<br>
-  <section id="allScores">
- 
-  <section id="allFlappyScores">
+  <div id="flappy-game"></div>
+  <section id="makeScore">
   </section>
-  <section id="allSviperScores">
+
+  <div id="heading">
+    <h1>Your Flappy Box Leaderboard</h1>
+  </div>
+
+  <section id="yourScores">
   </section>
-   </section>
+
+  <div id="heading">
+    <h1>Global Flappy Box Leaderboard</h1>
+  </div>
+
+  <section id="allGameScores">
+  </section>
+
   <div id="monsterMessage"><img id="speech" src="/assets/img/speech.png" alt="speech box" />
     <h3><span id="errorMessage"></span></h3><img id="monster" src="assets/img/monster.png" alt="monster" />
   </div>
   <script src="/assets/bundle.js"></script>
 
-
-
-
 </body>
+
 </html>
