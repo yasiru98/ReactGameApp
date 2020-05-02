@@ -77,32 +77,24 @@ function ChangePassForm(props) {
   );
 }
 
-; //App containing react components
-
-function App(props) {
-  return (/*#__PURE__*/React.createElement(Container, {
-      maxWidth: "sm"
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        marginTop: 200
-      }
-    }, /*#__PURE__*/React.createElement(Typography, {
-      variant: "h4",
-      component: "h1",
-      gutterBottom: true
-    }, "Change Your Password"), /*#__PURE__*/React.createElement(ChangePassForm, {
-      csrf: props.csrf
-    })))
-  );
-} //Render react components on page
-
+; //Render react components on page
 
 var setup = function setup(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(ThemeProvider, {
     theme: theme
-  }, /*#__PURE__*/React.createElement(CssBaseline, null), /*#__PURE__*/React.createElement(App, {
+  }, /*#__PURE__*/React.createElement(CssBaseline, null), /*#__PURE__*/React.createElement(Container, {
+    maxWidth: "sm"
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 200
+    }
+  }, /*#__PURE__*/React.createElement(Typography, {
+    variant: "h4",
+    component: "h1",
+    gutterBottom: true
+  }, "Change Your Password"), /*#__PURE__*/React.createElement(ChangePassForm, {
     csrf: csrf
-  })), document.querySelector('#root'));
+  })))), document.querySelector('#root'));
 }; //get csrf token and call setup function
 
 

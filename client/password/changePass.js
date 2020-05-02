@@ -72,20 +72,6 @@ function ChangePassForm(props) {
     );
 };
 
-//App containing react components
-function App(props) {
-    return (
-      <Container maxWidth="sm">
-        <div style={{ marginTop: 200, }}>
-          <Typography variant="h4" component="h1" gutterBottom>
-            Change Your Password
-          </Typography>
-        <ChangePassForm csrf={props.csrf}/>
-        
-        </div>
-      </Container>
-    );
-  }
   
 //Render react components on page
 const setup = function(csrf) {
@@ -93,7 +79,15 @@ const setup = function(csrf) {
         <ThemeProvider theme={theme}>
 
         <CssBaseline />
-        <App csrf={csrf}/>
+        <Container maxWidth="sm">
+        <div style={{ marginTop: 200, }}>
+          <Typography variant="h4" component="h1" gutterBottom>
+            Change Your Password
+          </Typography>
+        <ChangePassForm csrf={csrf}/>
+        
+        </div>
+      </Container>
    
       </ThemeProvider>, document.querySelector('#root'),
 
