@@ -46,20 +46,7 @@ var useStyles = makeStyles({
     width: '100%',
     maxWidth: 500
   }
-}); //page heading
-
-function Heading() {
-  var classes = useStyles();
-  return (/*#__PURE__*/React.createElement("div", {
-      className: classes.root
-    }, /*#__PURE__*/React.createElement(Typography, {
-      variant: "h1",
-      component: "h2",
-      gutterBottom: true
-    }, "Change Password"))
-  );
-} //for for password change data
-
+}); //for for password change data
 
 function ChangePassForm(props) {
   return (/*#__PURE__*/React.createElement("form", {

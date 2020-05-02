@@ -52,18 +52,7 @@ const useStyles = makeStyles({
   },
 });
 
-//page heading
-function Heading() {
-  const classes = useStyles();
 
-  return (
-    <div className={classes.root}>
-      <Typography variant="h1" component="h2" gutterBottom>
-        Change Password
-      </Typography>
-    </div>
-  );
-}
 
 //for for password change data
 function ChangePassForm(props) {
@@ -107,12 +96,9 @@ const setup = function(csrf) {
         <App csrf={csrf}/>
    
       </ThemeProvider>, document.querySelector('#root'),
-    
-  
+
     
     );
-
-
 
 }
 
