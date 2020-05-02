@@ -1,4 +1,4 @@
-
+//React material UI compomemts
 const {
     colors,
     CssBaseline,
@@ -14,6 +14,7 @@ const {
     Button
   } = MaterialUI;
 
+  //React material UI theme styling
   const theme = createMuiTheme({
     palette: {
       primary: {
@@ -31,6 +32,7 @@ const {
     },
   });
 
+  //send password change data to server
 const changePassword = (e) => {
 	e.preventDefault();
     let newPassword = document.getElementById("newPass").value;  
@@ -42,7 +44,7 @@ const changePassword = (e) => {
 };
 
 
-
+//React material UI component styling
 const useStyles = makeStyles({
   root: {
     width: '100%',
@@ -50,6 +52,7 @@ const useStyles = makeStyles({
   },
 });
 
+//page heading
 function Heading() {
   const classes = useStyles();
 
@@ -62,6 +65,7 @@ function Heading() {
   );
 }
 
+//for for password change data
 function ChangePassForm(props) {
     return(
 
@@ -78,6 +82,8 @@ function ChangePassForm(props) {
         </form>
     );
 };
+
+//App containing react components
 function App(props) {
     return (
       <Container maxWidth="sm">
@@ -92,7 +98,7 @@ function App(props) {
     );
   }
   
-
+//Render react components on page
 const setup = function(csrf) {
     ReactDOM.render(
         <ThemeProvider theme={theme}>
@@ -109,12 +115,15 @@ const setup = function(csrf) {
 
 
 }
+
+//get csrf token and call setup function
 const getToken = () => {
     sendAjax('GET', '/getToken', null, (result) => {
         setup(result.csrfToken);
     });
 };
 
+//get csrf token when document loads
 $(document).ready(function(){
     getToken();
 });

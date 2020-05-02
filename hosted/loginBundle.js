@@ -1,5 +1,6 @@
 "use strict";
 
+//React material UI compomemts
 var _MaterialUI = MaterialUI,
     colors = _MaterialUI.colors,
     CssBaseline = _MaterialUI.CssBaseline,
@@ -26,7 +27,8 @@ var _MaterialUI = MaterialUI,
     CardActionArea = _MaterialUI.CardActionArea,
     CardMedia = _MaterialUI.CardMedia,
     CardContent = _MaterialUI.CardContent,
-    CardActions = _MaterialUI.CardActions;
+    CardActions = _MaterialUI.CardActions; //React material UI theme styling
+
 var theme = createMuiTheme({
   palette: {
     primary: {
@@ -42,7 +44,7 @@ var theme = createMuiTheme({
       "default": '#fff'
     }
   }
-});
+}); //check user data and send login request to server
 
 var handleLogin = function handleLogin(e) {
   e.preventDefault();
@@ -60,7 +62,8 @@ var handleLogin = function handleLogin(e) {
   var token = document.getElementById("token").value;
   sendAjax('POST', $("#loginForm").attr("action"), "&pass=".concat(pass, "&username=").concat(user, "&_csrf=").concat(token), redirect);
   return false;
-};
+}; //check user data and send new account data to server
+
 
 var handleSignup = function handleSignup(e) {
   e.preventDefault();
@@ -89,7 +92,8 @@ var handleSignup = function handleSignup(e) {
   var token = document.getElementById("token").value;
   sendAjax('POST', $("#signupForm").attr("action"), "&username=".concat(user, "&pass=").concat(pass, "&pass2=").concat(pass2, "&_csrf=").concat(token), redirect);
   return false;
-};
+}; //React component for logging in
+
 
 var LoginWindow = function LoginWindow(props) {
   return (/*#__PURE__*/React.createElement("form", {
@@ -123,7 +127,8 @@ var LoginWindow = function LoginWindow(props) {
       color: "primary"
     }, "Login"))
   );
-};
+}; //React component for signing up
+
 
 var SignupWindow = function SignupWindow(props) {
   return (/*#__PURE__*/React.createElement("form", {
@@ -161,11 +166,13 @@ var SignupWindow = function SignupWindow(props) {
       color: "primary"
     }, "Sign up"))
   );
-};
+}; //Render react components on page
+
 
 var setup = function setup(csrf) {
   var loginButton = document.querySelector("#loginButton");
-  var signupButton = document.querySelector("#signupButton");
+  var signupButton = document.querySelector("#signupButton"); //Render sign up window if user clicks sign up button
+
   signupButton.addEventListener("click", function (e) {
     e.preventDefault();
     ReactDOM.render( /*#__PURE__*/React.createElement("div", {
@@ -180,7 +187,8 @@ var setup = function setup(csrf) {
       csrf: csrf
     })))), document.querySelector('#root'));
     return false;
-  });
+  }); //Render login window if user clicks login button
+
   loginButton.addEventListener("click", function (e) {
     e.preventDefault();
     ReactDOM.render( /*#__PURE__*/React.createElement("div", {
@@ -207,32 +215,37 @@ var setup = function setup(csrf) {
   }, /*#__PURE__*/React.createElement(CssBaseline, null), /*#__PURE__*/React.createElement(LoginWindow, {
     csrf: csrf
   })))), document.querySelector('#root'));
-};
+}; //get csrf token and call setup function
+
 
 var getToken = function getToken() {
   sendAjax('GET', '/getToken', null, function (result) {
     setup(result.csrfToken);
   });
-};
+}; //get csrf token when document loads
+
 
 $(document).ready(function () {
   getToken();
 });
 "use strict";
 
+//show error message to user
 var handleError = function handleError(message) {
   $("#errorMessage").text(message);
   $("#monsterMessage").animate({
     width: 'toggle'
   }, 350);
-};
+}; //redirect to page
+
 
 var redirect = function redirect(response) {
   $("#monsterMessage").animate({
     width: 'hide'
   }, 350);
   window.location = response.redirect;
-};
+}; //send requests to the server
+
 
 var sendAjax = function sendAjax(type, action, data, success) {
   $.ajax({

@@ -2,6 +2,7 @@
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//React material UI compomemts
 var _MaterialUI = MaterialUI,
     colors = _MaterialUI.colors,
     CssBaseline = _MaterialUI.CssBaseline,
@@ -28,7 +29,8 @@ var _MaterialUI = MaterialUI,
     CardActionArea = _MaterialUI.CardActionArea,
     CardMedia = _MaterialUI.CardMedia,
     CardContent = _MaterialUI.CardContent,
-    CardActions = _MaterialUI.CardActions;
+    CardActions = _MaterialUI.CardActions; //React material UI theme styling
+
 var theme = createMuiTheme({
   palette: {
     primary: {
@@ -44,7 +46,8 @@ var theme = createMuiTheme({
       "default": "#fff"
     }
   }
-});
+}); //React material UI component styling
+
 var useStyles = makeStyles({
   root: {
     width: "100%",
@@ -65,7 +68,8 @@ var useStyles = makeStyles({
   media: {
     height: 220
   }
-});
+}); //check which game the user is playing
+
 var flappyGame = document.getElementById("flappy-game");
 var sviperGame = document.getElementById("sviper-game");
 var gameChooser = document.getElementById("gameChoose");
@@ -80,7 +84,7 @@ if (sviperGame != null) {
   userGame = "sviper";
 }
 
-console.log(userGame);
+console.log(userGame); //post high score to the servere
 
 var handleScore = function handleScore(e) {
   e.preventDefault();
@@ -100,7 +104,8 @@ var handleScore = function handleScore(e) {
     console.log(globalVariable.score);
   });
   return false;
-};
+}; //Score form for submitting high scores to the server
+
 
 var ScoreForm = function ScoreForm(props) {
   return (/*#__PURE__*/React.createElement("form", {
@@ -133,7 +138,8 @@ var ScoreForm = function ScoreForm(props) {
       value: "Submit Score"
     }))
   );
-};
+}; //Cards that display game information
+
 
 function GameCards() {
   var classes = useStyles();
@@ -203,7 +209,8 @@ function GameCards() {
       color: "primary"
     }, "Play"))))))
   );
-}
+} //List table for displaying high scores
+
 
 var ScoreList = function ScoreList(props) {
   var classes = useStyles();
@@ -253,7 +260,8 @@ var ScoreList = function ScoreList(props) {
       );
     }))))
   );
-};
+}; //get user's high scores for the game being played
+
 
 var loadScoresFromServer = function loadScoresFromServer() {
   sendAjax("GET", "/getScores?+&".concat(userGame), null, function (data) {
@@ -262,7 +270,8 @@ var loadScoresFromServer = function loadScoresFromServer() {
       game: userGame
     }), document.querySelector("#yourScores"));
   });
-};
+}; //get all high scores for the game being played
+
 
 var loadAllGameScoresFromServer = function loadAllGameScoresFromServer() {
   sendAjax("GET", "/getAllScores?+&".concat(userGame), null, function (data) {
@@ -271,7 +280,8 @@ var loadAllGameScoresFromServer = function loadAllGameScoresFromServer() {
       game: userGame
     }), document.querySelector("#allGameScores"));
   });
-};
+}; //get all high scores for all games
+
 
 var loadAllScoresFromServer = function loadAllScoresFromServer() {
   sendAjax("GET", "/getAllScores?+&flappy", null, function (data) {
@@ -286,7 +296,8 @@ var loadAllScoresFromServer = function loadAllScoresFromServer() {
       game: "sviper"
     }), document.querySelector("#allSviperScores"));
   });
-};
+}; //render page content 
+
 
 var setup = function setup(csrf) {
   if (requireAllScores != null) {
@@ -302,32 +313,37 @@ var setup = function setup(csrf) {
     loadScoresFromServer();
     loadAllGameScoresFromServer();
   }
-};
+}; //get csrf token and call setup function
+
 
 var getToken = function getToken() {
   sendAjax("GET", "/getToken", null, function (result) {
     setup(result.csrfToken);
   });
-};
+}; //get csrf token when document loads
+
 
 $(document).ready(function () {
   getToken();
 });
 "use strict";
 
+//show error message to user
 var handleError = function handleError(message) {
   $("#errorMessage").text(message);
   $("#monsterMessage").animate({
     width: 'toggle'
   }, 350);
-};
+}; //redirect to page
+
 
 var redirect = function redirect(response) {
   $("#monsterMessage").animate({
     width: 'hide'
   }, 350);
   window.location = response.redirect;
-};
+}; //send requests to the server
+
 
 var sendAjax = function sendAjax(type, action, data, success) {
   $.ajax({

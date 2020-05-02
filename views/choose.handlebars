@@ -1,6 +1,7 @@
 <html lang="en">
+
 <head>
-  <meta charset="utf-8"/>
+  <meta charset="utf-8" />
   <title>CyberGames</title>
   <script src="https://unpkg.com/react@latest/umd/react.development.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/react-dom@latest/umd/react-dom.development.js"></script>
@@ -10,10 +11,27 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.6.2/remarkable.min.js"></script>
   <!-- "https://icons8.com/icons/set/controller">Game Controller favicon icon -->
-  <link rel="shortcut icon" href="/assets/img/favicon.png"/>
-  <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
+  <link rel="shortcut icon" href="/assets/img/favicon.png" />
+  <link rel="stylesheet" type="text/css" href="/assets/style.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    .row {
+      display: flex;
+      height: 100px;
+    }
+
+    /* Create three equal columns that sits next to each other */
+    .column {
+      flex: 33.33%;
+      padding: 5px;
+    }
+  </style>
 </head>
-<body> 
+
+<body>
   <!-- "https://icons8.com/icons/set/controller">Game Controller Nav bar icon -->
   <nav><a href="/choose"><img id="logo" src="/assets/img/controller.png" alt="controller logo" /></a>
     <div class="navlink"><a href="/changePass">Change Password</a></div>
@@ -21,27 +39,42 @@
   </nav>
 
 
-<div id="heading">
-  <h1>Choose Your Game</h1>
-</div>
+  <div id="heading">
+    <h1>Choose Your Game</h1>
+  </div>
 
 
-<section id="gameChoose">
+  <section id="gameChoose">
 
-</section>
-
-
-<div id="heading">
-  <h2>Global Leaderboards</h2>
-</div>
+  </section>
+  <div class="row">
+    <div class="column">
+      <img src="/assets/img/img_snow.jpg" alt="Snow" style="width:100%;; height:200px">
+    </div>
+    <div class="column">
+      <img src="/assets/img/img_forest.jpg" alt="Forest" style="width:100%;; height:200px">
+    </div>
+    <div class="column">
+      <img src="/assets/img/img_mountains.jpg" alt="Mountains" style="width:100%; height:200px">
+    </div>
+  </div>
 <br>
+<br>
+<br>
+<br>
+<br>
+  <div id="heading">
+    <h2>Global Leaderboards</h2>
+  </div>
+  <br>
   <section id="allScores">
- 
-  <section id="allFlappyScores">
+
+    <section id="allFlappyScores">
+    </section>
+    <section id="allSviperScores">
+    </section>
   </section>
-  <section id="allSviperScores">
-  </section>
-   </section>
+     <!-- "http://clipart-library.com/clip-art/1336561_monster-cartoon-png.htm">Monster Icon -->
   <div id="monsterMessage"><img id="speech" src="/assets/img/speech.png" alt="speech box" />
     <h3><span id="errorMessage"></span></h3><img id="monster" src="assets/img/monster.png" alt="monster" />
   </div>
@@ -51,4 +84,5 @@
 
 
 </body>
+
 </html>

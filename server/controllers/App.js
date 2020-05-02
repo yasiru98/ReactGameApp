@@ -1,8 +1,9 @@
-const models = require('../models');
+const models = require('../models');//data modles
 
-const { Flappy } = models;
-const { Sviper } = models;
-const flappyPage = (req, res) => {
+const { Flappy } = models;//flappy box game data model
+const { Sviper } = models;//sviper game data model
+
+const flappyPage = (req, res) => {//render flappy.handlebars page
   Flappy.FlappyModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
@@ -13,7 +14,7 @@ const flappyPage = (req, res) => {
   });
 };
 
-const sviperPage = (req, res) => {
+const sviperPage = (req, res) => {//render sviper.handlebars page
   Sviper.SviperModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
@@ -24,7 +25,7 @@ const sviperPage = (req, res) => {
   });
 };
 
-const choosePage = (req, res) => {
+const choosePage = (req, res) => {//render choose.handlebars page
   Flappy.FlappyModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
@@ -36,7 +37,7 @@ const choosePage = (req, res) => {
 };
 
 
-const makeScore = (req, res) => {
+const makeScore = (req, res) => {//validate and submit user's high score data to the correct game database
   if (req.body.score === '0') {
     return res.status(400).json({ error: 'RAWR! Play the game first' });
   }
@@ -92,7 +93,7 @@ const makeScore = (req, res) => {
   return false;
 };
 
-const getScores = (request, response) => {
+const getScores = (request, response) => {//get user's scores for the game being played
   const req = request;
   const res = response;
   let splitUrl = request.url.split('&');
@@ -122,7 +123,7 @@ if(userGame === "sviper"){
 return false
 };
 
-const getAllScores = (request, response) => {
+const getAllScores = (request, response) => {//get all scores for the game being played
   const res = response;
   let splitUrl = request.url.split('&');
   let userGame = splitUrl[1];

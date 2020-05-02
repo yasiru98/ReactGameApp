@@ -1,3 +1,4 @@
+//React material UI compomemts
 const {
     colors,
     CssBaseline,
@@ -27,6 +28,7 @@ const {
     CardActions,
   } = MaterialUI;
 
+//React material UI theme styling
   const theme = createMuiTheme({
     palette: {
       primary: {
@@ -44,6 +46,7 @@ const {
     },
   });
 
+//check user data and send login request to server
 const handleLogin = (e) => {
     e.preventDefault();
     
@@ -63,6 +66,7 @@ const handleLogin = (e) => {
     return false;
 };
 
+//check user data and send new account data to server
 const handleSignup = (e) => {
     e.preventDefault();
     
@@ -92,6 +96,7 @@ const handleSignup = (e) => {
     return false;
 };
 
+//React component for logging in
 const LoginWindow = (props) => {
     return(
         <form id="loginForm" name="loginForm"
@@ -112,6 +117,7 @@ const LoginWindow = (props) => {
     );
 };
 
+//React component for signing up
 const SignupWindow = (props) => {
     return(
         <form id="signupForm" name="signupForm"
@@ -133,10 +139,12 @@ const SignupWindow = (props) => {
     );
 };
 
+//Render react components on page
 const setup = (csrf) => {
     const loginButton = document.querySelector("#loginButton");
     const signupButton = document.querySelector("#signupButton");
 
+    //Render sign up window if user clicks sign up button
     signupButton.addEventListener("click", (e)=> {
         e.preventDefault();
         ReactDOM.render(
@@ -154,6 +162,7 @@ const setup = (csrf) => {
         return false;
     });
 
+    //Render login window if user clicks login button
     loginButton.addEventListener("click", (e)=> {
         e.preventDefault();
         ReactDOM.render(
@@ -187,12 +196,14 @@ const setup = (csrf) => {
     );
 };
 
+//get csrf token and call setup function
 const getToken = () => {
     sendAjax('GET', '/getToken', null,(result) =>{
         setup(result.csrfToken);
     });
 };
 
+//get csrf token when document loads
 $(document).ready(function(){
     getToken();
 });

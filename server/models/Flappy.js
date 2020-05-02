@@ -1,3 +1,4 @@
+//holds flappy box game scores
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
@@ -47,7 +48,7 @@ FlappySchema.statics.toAPI = (doc) => ({
   score: doc.score,
 });
 
-FlappySchema.statics.findByOwner = (ownerId, callback) => {
+FlappySchema.statics.findByOwner = (ownerId, callback) => {//find scores by user
   const search = {
     owner: convertId(ownerId),
   };
@@ -55,7 +56,7 @@ FlappySchema.statics.findByOwner = (ownerId, callback) => {
   return FlappyModel.find(search).select('name age score').lean().exec(callback);
 };
 
-FlappySchema.statics.findAll = (callback) => FlappyModel.find().select('name age score').lean().exec(callback);
+FlappySchema.statics.findAll = (callback) => FlappyModel.find().select('name age score').lean().exec(callback);//find all scores
 
 FlappyModel = mongoose.model('Flappy', FlappySchema);
 

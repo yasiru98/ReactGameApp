@@ -1,3 +1,4 @@
+//React material UI compomemts
 const {
   colors,
   CssBaseline,
@@ -27,6 +28,7 @@ const {
   CardActions
 } = MaterialUI;
 
+//React material UI theme styling
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -44,6 +46,7 @@ const theme = createMuiTheme({
   }
 });
 
+//React material UI component styling
 const useStyles = makeStyles({
   root: {
     width: "100%",
@@ -66,6 +69,7 @@ const useStyles = makeStyles({
   }
 });
 
+//check which game the user is playing
 let flappyGame = document.getElementById("flappy-game");
 let sviperGame = document.getElementById("sviper-game");
 let gameChooser = document.getElementById("gameChoose");
@@ -79,6 +83,8 @@ if (sviperGame != null) {
   userGame = "sviper";
 }
 console.log(userGame);
+
+//post high score to the servere
 const handleScore = e => {
   e.preventDefault();
 
@@ -105,6 +111,7 @@ const handleScore = e => {
   return false;
 };
 
+//Score form for submitting high scores to the server
 const ScoreForm = props => {
   return (
     <form
@@ -124,6 +131,7 @@ const ScoreForm = props => {
   );
 };
 
+//Cards that display game information
 function GameCards() {
   const classes = useStyles();
 
@@ -220,6 +228,7 @@ function GameCards() {
   );
 }
 
+//List table for displaying high scores
 const ScoreList = function(props) {
   const classes = useStyles();
   let tableName,message;
@@ -266,6 +275,7 @@ const ScoreList = function(props) {
   );
 };
 
+//get user's high scores for the game being played
 const loadScoresFromServer = () => {
 
     sendAjax("GET", `/getScores?+&${userGame}`, null, data => {
@@ -277,6 +287,7 @@ const loadScoresFromServer = () => {
   
 };
 
+//get all high scores for the game being played
 const loadAllGameScoresFromServer = () => {
   sendAjax("GET", `/getAllScores?+&${userGame}`, null, data => {
     ReactDOM.render(
@@ -285,7 +296,7 @@ const loadAllGameScoresFromServer = () => {
     );
   });
 };
-
+//get all high scores for all games
 const loadAllScoresFromServer = () => {
   sendAjax("GET", `/getAllScores?+&flappy`, null, data => {
     ReactDOM.render(
@@ -302,6 +313,7 @@ const loadAllScoresFromServer = () => {
   });
 };
 
+//render page content 
 const setup = function(csrf) {
   if (requireAllScores != null) {
     ReactDOM.render(<GameCards />, document.querySelector("#gameChoose"));
@@ -322,12 +334,14 @@ const setup = function(csrf) {
   }
 };
 
+//get csrf token and call setup function
 const getToken = () => {
   sendAjax("GET", "/getToken", null, result => {
     setup(result.csrfToken);
   });
 };
 
+//get csrf token when document loads
 $(document).ready(function() {
   getToken();
 });

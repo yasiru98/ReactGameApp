@@ -1,21 +1,21 @@
-const models = require('../models');
+const models = require('../models');//data models
 
-const { Account } = models;
+const { Account } = models;//account data modle
 
-const loginPage = (req, res) => {
+const loginPage = (req, res) => {//render login.handlebars page
   res.render('login', { csrfToken: req.csrfToken() });
 };
 
-const changePassPage = (req, res) => {
+const changePassPage = (req, res) => {//render login.changepass page
   res.render('changepass', { csrfToken: req.csrfToken() });
 };
 
-const logout = (req, res) => {
+const logout = (req, res) => {//destroy session and redirect to root when user logs out
   req.session.destroy();
   res.redirect('/');
 };
 
-const changePass = (request, response) => {
+const changePass = (request, response) => {//check validity and update user password
   const req = request;
   const res = response;
 
@@ -48,7 +48,7 @@ const changePass = (request, response) => {
 
 };
 
-const login = (request, response) => {
+const login = (request, response) => {//validate login data and log the user in
   const req = request;
   const res = response;
 
@@ -68,7 +68,7 @@ const login = (request, response) => {
   });
 };
 
-const signup = (request, response) => {
+const signup = (request, response) => {//validate data and create new user account
   const req = request;
   const res = response;
 
@@ -108,7 +108,7 @@ const signup = (request, response) => {
   });
 };
 
-const getToken = (request, response) => {
+const getToken = (request, response) => {//get csrf token
   const req = request;
   const res = response;
 

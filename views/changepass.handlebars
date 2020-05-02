@@ -12,6 +12,22 @@
   <!-- "https://icons8.com/icons/set/controller">Game Controller favicon icon -->
   <link rel="shortcut icon" href="/assets/img/favicon.png"/>
   <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
+    <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    .row {
+      display: flex;
+      height: 100px;
+    }
+
+    /* Create three equal columns that sits next to each other */
+    .column {
+      flex: 33.33%;
+      padding: 5px;
+    }
+  </style>
 </head>
 <body> 
 
@@ -26,7 +42,18 @@
  <div id="root">
 
 </div>
-
+  <div class="row">
+    <div class="column">
+      <img src="/assets/img/img_snow.jpg" alt="Snow" style="width:100%;; height:200px">
+    </div>
+    <div class="column">
+      <img src="/assets/img/img_forest.jpg" alt="Forest" style="width:100%;; height:200px">
+    </div>
+    <div class="column">
+      <img src="/assets/img/img_mountains.jpg" alt="Mountains" style="width:100%; height:200px">
+    </div>
+  </div>
+    <!-- "http://clipart-library.com/clip-art/1336561_monster-cartoon-png.htm">Monster Icon -->
   <div id="monsterMessage"><img id="speech" src="/assets/img/speech.png" alt="speech box" />
     <h3><span id="errorMessage"></span></h3><img id="monster" src="assets/img/monster.png" alt="monster" />
   </div>

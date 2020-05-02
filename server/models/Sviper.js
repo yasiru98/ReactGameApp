@@ -1,3 +1,4 @@
+//holds sviper game scores
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
@@ -47,7 +48,7 @@ SviperSchema.statics.toAPI = (doc) => ({
   score: doc.score,
 });
 
-SviperSchema.statics.findByOwner = (ownerId, callback) => {
+SviperSchema.statics.findByOwner = (ownerId, callback) => {//find scores by user
   const search = {
     owner: convertId(ownerId),
   };
@@ -55,7 +56,7 @@ SviperSchema.statics.findByOwner = (ownerId, callback) => {
   return SviperModel.find(search).select('name age score').lean().exec(callback);
 };
 
-SviperSchema.statics.findAll = (callback) => SviperModel.find().select('name age score').lean().exec(callback);
+SviperSchema.statics.findAll = (callback) => SviperModel.find().select('name age score').lean().exec(callback);//find all scores
 
 SviperModel = mongoose.model('Sviper', SviperSchema);
 
