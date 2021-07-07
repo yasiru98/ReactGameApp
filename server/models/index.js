@@ -1,3 +1,3 @@
-module.exports.Account = require('./Account.js');
-module.exports.Flappy = require('./Flappy.js');
-module.exports.Sviper = require('./Sviper.js');
+module.exports.Account = require('./Account');
+module.exports.Flappy = require('./Flappy');
+module.exports.Sviper = require('./Sviper');
