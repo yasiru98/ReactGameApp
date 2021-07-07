@@ -15,7 +15,7 @@ const redis = require('redis');
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 const dbURL = process.env.MONGODB_URI || 'mongodb://localhost/DomoMaker';
-//set up mongoDB
+// set up mongoDB
 const mongooseOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -27,7 +27,7 @@ mongoose.connect(dbURL, mongooseOptions, (err) => {
     throw err;
   }
 });
-//set up redis
+// set up redis
 let redisURL = {
   hostname: 'redis-11212.c8.us-east-1-2.ec2.cloud.redislabs.com',
   port: 11212,
@@ -60,7 +60,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
-app.use(session({//create a session
+app.use(session({ // create a session
   key: 'sessionid',
   store: new RedisStore({
     client: redisClient,
@@ -78,7 +78,7 @@ app.set('view engine', 'handlebars');
 app.set('views', `${__dirname}/../views`);
 app.use(cookieParser());
 
-app.use(csrf());//user scrf tokens for security
+app.use(csrf());// user scrf tokens for security
 app.use((err, req, res, next) => {
   if (err.code !== 'EBADCSRFTOKEN') return next(err);
   console.log('Missing CSRF token');
@@ -88,7 +88,7 @@ app.use((err, req, res, next) => {
 
 router(app);
 
-app.listen(port, (err) => {//start app
+app.listen(port, (err) => { // start app
   if (err) {
     throw err;
   }

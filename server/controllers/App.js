@@ -1,9 +1,9 @@
-const models = require('../models');//data modles
+const models = require('../models');// data modles
 
-const { Flappy } = models;//flappy box game data model
-const { Sviper } = models;//sviper game data model
+const { Flappy } = models;// flappy box game data model
+const { Sviper } = models;// sviper game data model
 
-const flappyPage = (req, res) => {//render flappy.handlebars page
+const flappyPage = (req, res) => { // render flappy.handlebars page
   Flappy.FlappyModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
@@ -14,7 +14,7 @@ const flappyPage = (req, res) => {//render flappy.handlebars page
   });
 };
 
-const sviperPage = (req, res) => {//render sviper.handlebars page
+const sviperPage = (req, res) => { // render sviper.handlebars page
   Sviper.SviperModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
@@ -25,7 +25,7 @@ const sviperPage = (req, res) => {//render sviper.handlebars page
   });
 };
 
-const choosePage = (req, res) => {//render choose.handlebars page
+const choosePage = (req, res) => { // render choose.handlebars page
   Flappy.FlappyModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
@@ -36,7 +36,7 @@ const choosePage = (req, res) => {//render choose.handlebars page
   });
 };
 
-//validate and submit user's high score data to the correct game database
+// validate and submit user's high score data to the correct game database
 const makeScore = (req, res) => {
   if (req.body.score === '0') {
     return res.status(400).json({ error: 'RAWR! Play the game first' });
@@ -57,98 +57,97 @@ const makeScore = (req, res) => {
     score: req.body.score,
     owner: req.session.account._id,
   };
-  if(req.body.game === "flappy"){
-  const newScore = new Flappy.FlappyModel(scoreData);
-  const flappyPromise = newScore.save();
+  if (req.body.game === 'flappy') {
+    const newScore = new Flappy.FlappyModel(scoreData);
+    const flappyPromise = newScore.save();
 
-  flappyPromise.then(() => res.json({ redirect: '/flappy' }));
+    flappyPromise.then(() => res.json({ redirect: '/flappy' }));
 
-  flappyPromise.catch((err) => {
-    console.log(err);
+    flappyPromise.catch((err) => {
+      console.log(err);
 
-    if (err.code === 11000) {
-      return res.status(400).json({ err: 'Score already exists.' });
-    }
-    return res.status(400).json({ err: 'An error occurred' });
-  });
-  return flappyPromise;
+      if (err.code === 11000) {
+        return res.status(400).json({ err: 'Score already exists.' });
+      }
+      return res.status(400).json({ err: 'An error occurred' });
+    });
+    return flappyPromise;
   }
 
-  if(req.body.game === "sviper"){
+  if (req.body.game === 'sviper') {
     const newScore = new Sviper.SviperModel(scoreData);
     const sviperPromise = newScore.save();
-  
+
     sviperPromise.then(() => res.json({ redirect: '/sviper' }));
-  
+
     sviperPromise.catch((err) => {
       console.log(err);
-  
+
       if (err.code === 11000) {
         return res.status(400).json({ err: 'Domo already exists.' });
       }
       return res.status(400).json({ err: 'An error occurred' });
     });
     return sviperPromise;
-    }
+  }
   return false;
 };
 
-const getScores = (request, response) => {//get user's scores for the game being played
+const getScores = (request, response) => { // get user's scores for the game being played
   const req = request;
   const res = response;
-  let splitUrl = request.url.split('&');
-  let userGame = splitUrl[1];
+  const splitUrl = request.url.split('&');
+  const userGame = splitUrl[1];
   console.log(userGame);
-  if(userGame === "flappy"){
-  return Flappy.FlappyModel.findByOwner(req.session.account._id, (err, docs) => {
-    if (err) {
-      console.log(err);
-      return res.status(400).json({ error: 'An error occurred' });
-    }
+  if (userGame === 'flappy') {
+    return Flappy.FlappyModel.findByOwner(req.session.account._id, (err, docs) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).json({ error: 'An error occurred' });
+      }
 
-    return res.json({ scores: docs });
-  });
-}
+      return res.json({ scores: docs });
+    });
+  }
 
-if(userGame === "sviper"){
-  return Sviper.SviperModel.findByOwner(req.session.account._id, (err, docs) => {
-    if (err) {
-      console.log(err);
-      return res.status(400).json({ error: 'An error occurred' });
-    }
+  if (userGame === 'sviper') {
+    return Sviper.SviperModel.findByOwner(req.session.account._id, (err, docs) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).json({ error: 'An error occurred' });
+      }
 
-    return res.json({ scores: docs });
-  });
-}
-return false
+      return res.json({ scores: docs });
+    });
+  }
+  return false;
 };
 
-const getAllScores = (request, response) => {//get all scores for the game being played
+const getAllScores = (request, response) => { // get all scores for the game being played
   const res = response;
-  let splitUrl = request.url.split('&');
-  let userGame = splitUrl[1];
-  if(userGame === "flappy"){
-  return Flappy.FlappyModel.find((err, docs) => {
-    if (err) {
-      console.log(err);
-      return res.status(400).json({ error: 'An error occurred' });
-    }
+  const splitUrl = request.url.split('&');
+  const userGame = splitUrl[1];
+  if (userGame === 'flappy') {
+    return Flappy.FlappyModel.find((err, docs) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).json({ error: 'An error occurred' });
+      }
 
-    return res.json({ scores: docs });
-  });
-  
-}
-if(userGame === "sviper"){
-  return Sviper.SviperModel.find((err, docs) => {
-    if (err) {
-      console.log(err);
-      return res.status(400).json({ error: 'An error occurred' });
-    }
+      return res.json({ scores: docs });
+    });
+  }
+  if (userGame === 'sviper') {
+    return Sviper.SviperModel.find((err, docs) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).json({ error: 'An error occurred' });
+      }
 
-    return res.json({ scores: docs });
-  });
-}
-return false
+      return res.json({ scores: docs });
+    });
+  }
+  return false;
 };
 
 module.exports.flappyPage = flappyPage;

@@ -1,4 +1,4 @@
-//holds user account data
+// holds user account data
 const crypto = require('crypto');
 const mongoose = require('mongoose');
 
@@ -37,7 +37,7 @@ AccountSchema.statics.toAPI = (doc) => ({
   _id: doc._id,
 });
 
-const validatePassword = (doc, password, callback) => {//check user's password validity
+const validatePassword = (doc, password, callback) => { // check user's password validity
   const pass = doc.password;
 
   return crypto.pbkdf2(password, doc.salt, iterations, keyLength, 'RSA-SHA512', (err, hash) => {
@@ -48,7 +48,7 @@ const validatePassword = (doc, password, callback) => {//check user's password v
   });
 };
 
-AccountSchema.statics.findByUsername = (name, callback) => {//find a user by username
+AccountSchema.statics.findByUsername = (name, callback) => { // find a user by username
   const search = {
     username: name,
   };
@@ -56,13 +56,13 @@ AccountSchema.statics.findByUsername = (name, callback) => {//find a user by use
   return AccountModel.findOne(search, callback);
 };
 
-AccountSchema.statics.generateHash = (password, callback) => {//generate hash and encrypt password
+AccountSchema.statics.generateHash = (password, callback) => { // generate hash and encrypt password
   const salt = crypto.randomBytes(saltLength);
 
   crypto.pbkdf2(password, salt, iterations, keyLength, 'RSA-SHA512', (err, hash) => callback(salt, hash.toString('hex')));
 };
 
-AccountSchema.statics.authenticate = (username, password, callback) => {//check users login data
+AccountSchema.statics.authenticate = (username, password, callback) => { // check users login data
   AccountModel.findByUsername(username, (err, doc) => {
     if (err) {
       return callback(err);

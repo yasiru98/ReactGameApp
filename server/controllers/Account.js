@@ -1,21 +1,21 @@
-const models = require('../models');//data models
+const models = require('../models');// data models
 
-const { Account } = models;//account data modle
+const { Account } = models;// account data modle
 
-const loginPage = (req, res) => {//render login.handlebars page
+const loginPage = (req, res) => { // render login.handlebars page
   res.render('login', { csrfToken: req.csrfToken() });
 };
 
-const changePassPage = (req, res) => {//render login.changepass page
+const changePassPage = (req, res) => { // render login.changepass page
   res.render('changepass', { csrfToken: req.csrfToken() });
 };
 
-const logout = (req, res) => {//destroy session and redirect to root when user logs out
+const logout = (req, res) => { // destroy session and redirect to root when user logs out
   req.session.destroy();
   res.redirect('/');
 };
 
-const changePass = (request, response) => {//check validity and update user password
+const changePass = (request, response) => { // check validity and update user password
   const req = request;
   const res = response;
 
@@ -33,7 +33,6 @@ const changePass = (request, response) => {//check validity and update user pass
   }
 
   return Account.AccountModel.generateHash(password, (salt, hash) => {
- 
     const updatePromise = Account.AccountModel.updateOne({ _id: req.session.account._id },
       {
         salt,
@@ -41,14 +40,13 @@ const changePass = (request, response) => {//check validity and update user pass
       });
 
 
-      updatePromise.then(() => {
-        res.json({ redirect: '/choose' });
-      });
+    updatePromise.then(() => {
+      res.json({ redirect: '/choose' });
+    });
   });
-
 };
 
-const login = (request, response) => {//validate login data and log the user in
+const login = (request, response) => { // validate login data and log the user in
   const req = request;
   const res = response;
 
@@ -68,7 +66,7 @@ const login = (request, response) => {//validate login data and log the user in
   });
 };
 
-const signup = (request, response) => {//validate data and create new user account
+const signup = (request, response) => { // validate data and create new user account
   const req = request;
   const res = response;
 
@@ -108,7 +106,7 @@ const signup = (request, response) => {//validate data and create new user accou
   });
 };
 
-const getToken = (request, response) => {//get csrf token
+const getToken = (request, response) => { // get csrf token
   const req = request;
   const res = response;
 
