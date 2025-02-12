@@ -2,34 +2,35 @@
 
 //React material UI compomemts
 var _MaterialUI = MaterialUI,
-    colors = _MaterialUI.colors,
-    CssBaseline = _MaterialUI.CssBaseline,
-    ThemeProvider = _MaterialUI.ThemeProvider,
-    Typography = _MaterialUI.Typography,
-    Container = _MaterialUI.Container,
-    makeStyles = _MaterialUI.makeStyles,
-    createMuiTheme = _MaterialUI.createMuiTheme,
-    Box = _MaterialUI.Box,
-    SvgIcon = _MaterialUI.SvgIcon,
-    Link = _MaterialUI.Link,
-    TextField = _MaterialUI.TextField,
-    Button = _MaterialUI.Button,
-    TableContainer = _MaterialUI.TableContainer,
-    Paper = _MaterialUI.Paper,
-    TableCell = _MaterialUI.TableCell,
-    Table = _MaterialUI.Table,
-    TableHead = _MaterialUI.TableHead,
-    TableRow = _MaterialUI.TableRow,
-    TableBody = _MaterialUI.TableBody,
-    rows = _MaterialUI.rows,
-    Grid = _MaterialUI.Grid,
-    Card = _MaterialUI.Card,
-    CardActionArea = _MaterialUI.CardActionArea,
-    CardMedia = _MaterialUI.CardMedia,
-    CardContent = _MaterialUI.CardContent,
-    CardActions = _MaterialUI.CardActions; //React material UI theme styling
+  colors = _MaterialUI.colors,
+  CssBaseline = _MaterialUI.CssBaseline,
+  ThemeProvider = _MaterialUI.ThemeProvider,
+  Typography = _MaterialUI.Typography,
+  Container = _MaterialUI.Container,
+  makeStyles = _MaterialUI.makeStyles,
+  createTheme = _MaterialUI.createTheme,
+  Box = _MaterialUI.Box,
+  SvgIcon = _MaterialUI.SvgIcon,
+  Link = _MaterialUI.Link,
+  TextField = _MaterialUI.TextField,
+  Button = _MaterialUI.Button,
+  TableContainer = _MaterialUI.TableContainer,
+  Paper = _MaterialUI.Paper,
+  TableCell = _MaterialUI.TableCell,
+  Table = _MaterialUI.Table,
+  TableHead = _MaterialUI.TableHead,
+  TableRow = _MaterialUI.TableRow,
+  TableBody = _MaterialUI.TableBody,
+  rows = _MaterialUI.rows,
+  Grid = _MaterialUI.Grid,
+  Card = _MaterialUI.Card,
+  CardActionArea = _MaterialUI.CardActionArea,
+  CardMedia = _MaterialUI.CardMedia,
+  CardContent = _MaterialUI.CardContent,
+  CardActions = _MaterialUI.CardActions;
 
-var theme = createMuiTheme({
+//React material UI theme styling
+var theme = createTheme({
   palette: {
     primary: {
       main: '#55acee'
@@ -44,138 +45,132 @@ var theme = createMuiTheme({
       "default": '#fff'
     }
   }
-}); //check user data and send login request to server
+});
 
+//check user data and send login request to server
 var handleLogin = function handleLogin(e) {
   e.preventDefault();
   $("#domoMessage").animate({
     width: 'hide'
   }, 350);
-
   if ($("#userName").val() == '' || $("#userPass").val() == '') {
     handleError("RAWR! Username or password is empty");
     return false;
   }
-
   var pass = document.getElementById("userPass").value;
   var user = document.getElementById("userName").value;
   var token = document.getElementById("token").value;
   sendAjax('POST', $("#loginForm").attr("action"), "&pass=".concat(pass, "&username=").concat(user, "&_csrf=").concat(token), redirect);
   return false;
-}; //check user data and send new account data to server
+};
 
-
+//check user data and send new account data to server
 var handleSignup = function handleSignup(e) {
   e.preventDefault();
   $("#scoreMessage").animate({
     width: 'hide'
   }, 350);
-
   if ($("#newUserName").val() == '' || $("#newUserPass").val() == '' || $("#newUserConfirmPass").val() == '') {
     handleError("RAWR! All fields are required");
     return false;
   }
-
   if ($("#newUserPass").val() !== $("#newUserConfirmPass").val()) {
     handleError("RAWR! Passwords do not match");
     return false;
   }
-
   if ($("#newUserName").val().length < 4 || $("#newUserPass").val().length < 4 || $("#newUserConfirmPass").val().length < 4) {
     handleError("RAWR! Username and Password must be more than three characters");
     return false;
   }
-
   var pass = document.getElementById("newUserPass").value;
   var pass2 = document.getElementById("newUserConfirmPass").value;
   var user = document.getElementById("newUserName").value;
   var token = document.getElementById("token").value;
   sendAjax('POST', $("#signupForm").attr("action"), "&username=".concat(user, "&pass=").concat(pass, "&pass2=").concat(pass2, "&_csrf=").concat(token), redirect);
   return false;
-}; //React component for logging in
+};
 
-
+//React component for logging in
 var LoginWindow = function LoginWindow(props) {
-  return (/*#__PURE__*/React.createElement("form", {
-      id: "loginForm",
-      name: "loginForm",
-      onSubmit: handleLogin,
-      action: "/login",
-      method: "POST",
-      className: "mainForm"
-    }, /*#__PURE__*/React.createElement(Typography, {
-      variant: "h1",
-      component: "h1",
-      gutterBottom: true
-    }, "Cyber Games"), /*#__PURE__*/React.createElement("input", {
-      id: "token",
-      type: "hidden",
-      name: "_csrf",
-      value: props.csrf
-    }), /*#__PURE__*/React.createElement(TextField, {
-      type: "text",
-      id: "userName",
-      label: "Enter Username"
-    }), /*#__PURE__*/React.createElement(TextField, {
-      type: "password",
-      id: "userPass",
-      label: "Enter Password"
-    }), /*#__PURE__*/React.createElement(Button, {
-      id: "passButton",
-      type: "submit",
-      variant: "contained",
-      color: "primary"
-    }, "Login"))
-  );
-}; //React component for signing up
+  return /*#__PURE__*/React.createElement("form", {
+    id: "loginForm",
+    name: "loginForm",
+    onSubmit: handleLogin,
+    action: "/login",
+    method: "POST",
+    className: "mainForm"
+  }, /*#__PURE__*/React.createElement(Typography, {
+    variant: "h1",
+    component: "h1",
+    gutterBottom: true
+  }, "Cyber Games"), /*#__PURE__*/React.createElement("input", {
+    id: "token",
+    type: "hidden",
+    name: "_csrf",
+    value: props.csrf
+  }), /*#__PURE__*/React.createElement(TextField, {
+    type: "text",
+    id: "userName",
+    label: "Enter Username"
+  }), /*#__PURE__*/React.createElement(TextField, {
+    type: "password",
+    id: "userPass",
+    label: "Enter Password"
+  }), /*#__PURE__*/React.createElement(Button, {
+    id: "passButton",
+    type: "submit",
+    variant: "contained",
+    color: "primary"
+  }, "Login"));
+};
 
-
+//React component for signing up
 var SignupWindow = function SignupWindow(props) {
-  return (/*#__PURE__*/React.createElement("form", {
-      id: "signupForm",
-      name: "signupForm",
-      onSubmit: handleSignup,
-      action: "/signup",
-      method: "POST",
-      className: "mainForm"
-    }, /*#__PURE__*/React.createElement(Typography, {
-      variant: "h1",
-      component: "h1",
-      gutterBottom: true
-    }, "Cyber Games"), /*#__PURE__*/React.createElement("input", {
-      id: "token",
-      type: "hidden",
-      name: "_csrf",
-      value: props.csrf
-    }), /*#__PURE__*/React.createElement(TextField, {
-      type: "text",
-      id: "newUserName",
-      label: "Enter Username"
-    }), /*#__PURE__*/React.createElement(TextField, {
-      type: "password",
-      id: "newUserPass",
-      label: "Enter Password"
-    }), /*#__PURE__*/React.createElement(TextField, {
-      type: "password",
-      id: "newUserConfirmPass",
-      label: "Confirm Password"
-    }), /*#__PURE__*/React.createElement(Button, {
-      id: "passButton",
-      type: "submit",
-      variant: "contained",
-      color: "primary"
-    }, "Sign up"))
-  );
-}; //Render react components on page
+  return /*#__PURE__*/React.createElement("form", {
+    id: "signupForm",
+    name: "signupForm",
+    onSubmit: handleSignup,
+    action: "/signup",
+    method: "POST",
+    className: "mainForm"
+  }, /*#__PURE__*/React.createElement(Typography, {
+    variant: "h1",
+    component: "h1",
+    gutterBottom: true
+  }, "Cyber Games"), /*#__PURE__*/React.createElement("input", {
+    id: "token",
+    type: "hidden",
+    name: "_csrf",
+    value: props.csrf
+  }), /*#__PURE__*/React.createElement(TextField, {
+    type: "text",
+    id: "newUserName",
+    label: "Enter Username"
+  }), /*#__PURE__*/React.createElement(TextField, {
+    type: "password",
+    id: "newUserPass",
+    label: "Enter Password"
+  }), /*#__PURE__*/React.createElement(TextField, {
+    type: "password",
+    id: "newUserConfirmPass",
+    label: "Confirm Password"
+  }), /*#__PURE__*/React.createElement(Button, {
+    id: "passButton",
+    type: "submit",
+    variant: "contained",
+    color: "primary"
+  }, "Sign up"));
+};
 
-
+//Render react components on page
 var setup = function setup(csrf) {
   var loginButton = document.querySelector("#loginButton");
-  var signupButton = document.querySelector("#signupButton"); //Render sign up window if user clicks sign up button
+  var signupButton = document.querySelector("#signupButton");
 
+  //Render sign up window if user clicks sign up button
   signupButton.addEventListener("click", function (e) {
     e.preventDefault();
-    ReactDOM.render( /*#__PURE__*/React.createElement("div", {
+    ReactDOM.render(/*#__PURE__*/React.createElement("div", {
       style: {
         marginTop: 200
       }
@@ -187,11 +182,12 @@ var setup = function setup(csrf) {
       csrf: csrf
     })))), document.querySelector('#root'));
     return false;
-  }); //Render login window if user clicks login button
+  });
 
+  //Render login window if user clicks login button
   loginButton.addEventListener("click", function (e) {
     e.preventDefault();
-    ReactDOM.render( /*#__PURE__*/React.createElement("div", {
+    ReactDOM.render(/*#__PURE__*/React.createElement("div", {
       style: {
         marginTop: 200
       }
@@ -204,7 +200,7 @@ var setup = function setup(csrf) {
     })))), document.querySelector('#root'));
     return false;
   });
-  ReactDOM.render( /*#__PURE__*/React.createElement("div", {
+  ReactDOM.render(/*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 200
     }
@@ -215,16 +211,16 @@ var setup = function setup(csrf) {
   }, /*#__PURE__*/React.createElement(CssBaseline, null), /*#__PURE__*/React.createElement(LoginWindow, {
     csrf: csrf
   })))), document.querySelector('#root'));
-}; //get csrf token and call setup function
+};
 
-
+//get csrf token and call setup function
 var getToken = function getToken() {
   sendAjax('GET', '/getToken', null, function (result) {
     setup(result.csrfToken);
   });
-}; //get csrf token when document loads
+};
 
-
+//get csrf token when document loads
 $(document).ready(function () {
   getToken();
 });
@@ -236,17 +232,17 @@ var handleError = function handleError(message) {
   $("#monsterMessage").animate({
     width: 'toggle'
   }, 350);
-}; //redirect to page
+};
 
-
+//redirect to page
 var redirect = function redirect(response) {
   $("#monsterMessage").animate({
     width: 'hide'
   }, 350);
   window.location = response.redirect;
-}; //send requests to the server
+};
 
-
+//send requests to the server
 var sendAjax = function sendAjax(type, action, data, success) {
   $.ajax({
     cache: false,

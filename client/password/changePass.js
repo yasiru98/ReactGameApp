@@ -1,109 +1,93 @@
-//React material UI compomemts
+// React Material-UI components
 const {
-    colors,
-    CssBaseline,
-    ThemeProvider,
-    Typography,
-    Container,
-    makeStyles,
-    createMuiTheme,
-    Box,
-    SvgIcon,
-    Link,
-    TextField,
-    Button
-  } = MaterialUI;
+  colors,
+  CssBaseline,
+  ThemeProvider,
+  Typography,
+  Container,
+  createTheme,
+  Box,
+  SvgIcon,
+  Link,
+  TextField,
+  Button
+} = MaterialUI;
 
-  //React material UI theme styling
-  const theme = createMuiTheme({
-    palette: {
+// React Material-UI theme styling
+const theme = createTheme({
+  palette: {
       primary: {
-        main: '#55acee',
+          main: '#55acee',
       },
       secondary: {
-        main: '#19857b',
+          main: '#19857b',
       },
       error: {
-        main: colors.red.A400,
+          main: colors.red.A400,
       },
       background: {
-        default: '#fff',
+          default: '#fff',
       },
-    },
-  });
-
-  //send password change data to server
-const changePassword = (e) => {
-	e.preventDefault();
-    let newPassword = document.getElementById("newPass").value;  
-    let newPassword2 = document.getElementById("newPass2").value; 
-    let token = document.getElementById("token").value; 
-
-    sendAjax('POST', "/changePass", `&newPass=${newPassword}&newPass2=${newPassword2}&_csrf=${token}`, redirect);
-
-};
-
-
-//React material UI component styling
-const useStyles = makeStyles({
-  root: {
-    width: '100%',
-    maxWidth: 500,
   },
 });
 
+// Send password change data to the server
+const changePassword = (e) => {
+  e.preventDefault();
+  let newPassword = document.getElementById("newPass").value;
+  let newPassword2 = document.getElementById("newPass2").value;
+  let token = document.getElementById("token").value;
 
-
-//for for password change data
-function ChangePassForm(props) {
-    return(
-
-           <form id="changePass"
-           onSubmit={changePassword}
-           name="changePass"
-  
-           method="POST"
-           className="passForm">
-            <input id="token" type="hidden" name="_csrf" value={props.csrf} />
-            <TextField   type="password" id="newPass" label="Enter New Password" />
-            <TextField   type="password" id="newPass2" label="Confirm New Password" />
-            <Button id="passButton" type="submit" variant="contained" color="primary">Change Password</Button>
-        </form>
-    );
+  sendAjax('POST', "/changePass", `&newPass=${newPassword}&newPass2=${newPassword2}&_csrf=${token}`, redirect);
 };
 
-  
-//Render react components on page
-const setup = function(csrf) {
-    ReactDOM.render(
-        <ThemeProvider theme={theme}>
-
-        <CssBaseline />
-        <Container maxWidth="sm">
-        <div style={{ marginTop: 200, }}>
-          <Typography variant="h4" component="h1" gutterBottom>
-            Change Your Password
-          </Typography>
-        <ChangePassForm csrf={csrf}/>
-        
-        </div>
-      </Container>
-   
-      </ThemeProvider>, document.querySelector('#root'),
-
-    
-    );
-
+// Form for password change
+function ChangePassForm(props) {
+  return (
+      <form 
+          id="changePass"
+          onSubmit={changePassword}
+          name="changePass"
+          method="POST"
+          className="passForm"
+          style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '400px', margin: 'auto' }}
+      >
+          <input id="token" type="hidden" name="_csrf" value={props.csrf} />
+          <TextField type="password" id="newPass" label="Enter New Password" fullWidth />
+          <TextField type="password" id="newPass2" label="Confirm New Password" fullWidth />
+          <Button id="passButton" type="submit" variant="contained" color="primary" fullWidth>
+              Change Password
+          </Button>
+      </form>
+  );
 }
 
-//get csrf token and call setup function
+// Render React components on the page
+const setup = function (csrf) {
+  ReactDOM.render(
+      <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Container maxWidth="sm">
+              <Box sx={{ marginTop: 10, textAlign: 'center' }}>
+                  <Typography variant="h4" component="h1" gutterBottom>
+                      Change Your Password
+                  </Typography>
+                  <ChangePassForm csrf={csrf} />
+              </Box>
+          </Container>
+      </ThemeProvider>,
+      document.querySelector('#root'),
+  );
+}
+
+// Get CSRF token and call setup function
 const getToken = () => {
-    sendAjax('GET', '/getToken', null, (result) => {
-        setup(result.csrfToken);
-    });
+  sendAjax('GET', '/getToken', null, (result) => {
+      setup(result.csrfToken);
+  });
 };
 
-//get csrf token when document loads
-$(document).ready(function(){
-    getToken();
+// Get CSRF token when document loads
+$(document).ready(function () {
+  getToken();
 });

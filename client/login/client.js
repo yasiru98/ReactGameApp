@@ -6,7 +6,7 @@ const {
     Typography,
     Container,
     makeStyles,
-    createMuiTheme,
+    createTheme ,
     Box,
     SvgIcon,
     Link,
@@ -29,7 +29,7 @@ const {
   } = MaterialUI;
 
 //React material UI theme styling
-  const theme = createMuiTheme({
+  const theme = createTheme ({
     palette: {
       primary: {
         main: '#55acee',

@@ -1,12 +1,11 @@
-//React material UI compomemts
+// React Material-UI components
 const {
   colors,
   CssBaseline,
   ThemeProvider,
   Typography,
   Container,
-  makeStyles,
-  createMuiTheme,
+  createTheme,
   Box,
   SvgIcon,
   Link,
@@ -19,7 +18,6 @@ const {
   TableHead,
   TableRow,
   TableBody,
-  rows,
   Grid,
   Card,
   CardActionArea,
@@ -28,80 +26,43 @@ const {
   CardActions
 } = MaterialUI;
 
-//React material UI theme styling
-const theme = createMuiTheme({
+// React Material-UI theme styling
+const theme = createTheme({
   palette: {
-    primary: {
-      main: "#55acee"
-    },
-    secondary: {
-      main: "#19857b"
-    },
-    error: {
-      main: colors.red.A400
-    },
-    background: {
-      default: "#fff"
-    }
+    primary: { main: "#55acee" },
+    secondary: { main: "#19857b" },
+    error: { main: colors.red.A400 },
+    background: { default: "#fff" }
   }
 });
 
-//React material UI component styling
-const useStyles = makeStyles({
-  root: {
-    width: "100%",
-    maxWidth: 500
-  },
-  gameChoose: {
-    flexGrow: 1
-  },
-  table: {
-    minWidth: 400
-  },
-  grid: {
-    flexGrow: 1
-  },
-  card: {
-    maxWidth: 200
-  },
-  media: {
-    height: 220
-  }
-});
-
-//check which game the user is playing
+// Check which game the user is playing
 let flappyGame = document.getElementById("flappy-game");
 let sviperGame = document.getElementById("sviper-game");
 let gameChooser = document.getElementById("gameChoose");
 let requireAllScores = document.getElementById("allScores");
 let userGame = "";
-if (flappyGame != null) {
-  userGame = "flappy";
-}
 
-if (sviperGame != null) {
-  userGame = "sviper";
-}
+if (flappyGame != null) userGame = "flappy";
+if (sviperGame != null) userGame = "sviper";
+
 console.log(userGame);
 
-//post high score to the servere
-const handleScore = e => {
+// Post high score to the server
+const handleScore = (e) => {
   e.preventDefault();
-
   $("#monsterMessage").animate({ width: "hide" }, 350);
 
-  if ($("#scoreName").val() == "" || $("#scoreAge").val() == "") {
+  if ($("#scoreName").val() === "" || $("#scoreAge").val() === "") {
     handleError("RAWR! All fields are required");
     return false;
   }
 
-  console.log("flappyGame");
   sendAjax(
     "POST",
     "/maker",
-    $("#scoreForm").serialize() +
-      `&score=${globalVariable.score}&game=${userGame}`,
-    function() {
+    $("#scoreForm").serialize() + `&score=${globalVariable.score}&game=${userGame}`,
+    function () {
       loadScoresFromServer();
       loadAllGameScoresFromServer();
       console.log(globalVariable.score);
@@ -111,16 +72,10 @@ const handleScore = e => {
   return false;
 };
 
-//Score form for submitting high scores to the server
-const ScoreForm = props => {
+// Score form for submitting high scores to the server
+const ScoreForm = (props) => {
   return (
-    <form
-      id="scoreForm"
-      onSubmit={handleScore}
-      name="scoreForm"
-      method="POST"
-      className="scoreForm"
-    >
+    <form id="scoreForm" onSubmit={handleScore} name="scoreForm" method="POST" className="scoreForm">
       <label htmlFor="name">Name: </label>
       <input id="scoreName" type="text" name="name" placeholder="Your Name" />
       <label htmlFor="age">Age: </label>
@@ -131,44 +86,23 @@ const ScoreForm = props => {
   );
 };
 
-//Cards that display game information
-function GameCards() {
-  const classes = useStyles();
-
+// Cards that display game information
+const GameCards = () => {
   return (
-    <div className={classes.grid}>
+    <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={3}>
-        <Grid item xs={6} justifycontent="center">
-          <Card className={classes.card} className="mx-auto">
+        <Grid item xs={6} justifyContent="center">
+          <Card sx={{ maxWidth: 200, margin: "auto" }}>
             <CardActionArea>
-              <CardMedia
-                className={classes.media}
-                image="/assets/img/flappy.jpg"
-                title="Contemplative Reptile"
-              />
+              <CardMedia sx={{ height: 220 }} image="/assets/img/flappy.jpg" title="Flappy Box" />
               <CardContent>
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  component="p"
-                  align="center"
-                >
+                <Typography variant="body2" color="textSecondary" align="center">
                   Phaser.js Game
                 </Typography>
-                <Typography
-                  gutterBottom
-                  variant="h5"
-                  component="h2"
-                  align="center"
-                >
+                <Typography gutterBottom variant="h5" align="center">
                   Flappy Box
                 </Typography>
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  component="p"
-                  align="center"
-                >
+                <Typography variant="body2" color="textSecondary" align="center">
                   Flappy bird clone: Flappy Box.
                 </Typography>
               </CardContent>
@@ -180,39 +114,19 @@ function GameCards() {
             </CardActions>
           </Card>
         </Grid>
-        <Grid item xs={6} justifycontent="center">
-          <Card className={classes.card} className="mx-auto">
+        <Grid item xs={6} justifyContent="center">
+          <Card sx={{ maxWidth: 200, margin: "auto" }}>
             <CardActionArea>
-              <CardMedia
-                className={classes.media}
-                image="/assets/img/sviper.jpg"
-                title="Sviper Game"
-              />
+              <CardMedia sx={{ height: 220 }} image="/assets/img/sviper.jpg" title="Sviper" />
               <CardContent>
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  component="p"
-                  align="center"
-                >
+                <Typography variant="body2" color="textSecondary" align="center">
                   PIXI.js Game
                 </Typography>
-                <Typography
-                  gutterBottom
-                  variant="h5"
-                  component="h2"
-                  align="center"
-                >
+                <Typography gutterBottom variant="h5" align="center">
                   Sviper
                 </Typography>
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  component="p"
-                  align="center"
-                >
-                  Control the SVIPER jet, defeat enemies, collect power ups and
-                  rack up a high score.
+                <Typography variant="body2" color="textSecondary" align="center">
+                  Control the SVIPER jet, defeat enemies, collect power-ups, and rack up a high score.
                 </Typography>
               </CardContent>
             </CardActionArea>
@@ -224,47 +138,44 @@ function GameCards() {
           </Card>
         </Grid>
       </Grid>
-    </div>
+    </Box>
   );
-}
+};
 
-//List table for displaying high scores
-const ScoreList = function(props) {
-  const classes = useStyles();
-  let tableName,message;
+// List table for displaying high scores
+const ScoreList = (props) => {
+  let tableName, message;
 
   if (props.game === "flappy") {
     tableName = "Flappy Box Leaderboard";
     message = "No Flappy Box Scores Yet";
   } else if (props.game === "sviper") {
-    tableName = `Sviper Leaderboard\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0`;
+    tableName = "Sviper Leaderboard";
     message = "No Sviper Scores Yet";
   }
 
   if (props.scores.length === 0) {
     return (
-      <div id="heading">
-        <h3 className="emptyScore">{message}</h3>
-      </div>
+      <Box id="heading">
+        <Typography variant="h3" className="emptyScore">{message}</Typography>
+      </Box>
     );
   }
 
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
+      <Table sx={{ minWidth: 400 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell style={{ color: "#55acee" }}>{tableName}</TableCell>
+            <TableCell sx={{ color: "#55acee" }}>{tableName}</TableCell>
             <TableCell align="right">Score</TableCell>
             <TableCell align="right">Age</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {props.scores.map(row => (
+          {props.scores.map((row) => (
             <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
+              <TableCell>{row.name}</TableCell>
               <TableCell align="right">{row.score}</TableCell>
               <TableCell align="right">{row.age}</TableCell>
             </TableRow>
@@ -275,73 +186,77 @@ const ScoreList = function(props) {
   );
 };
 
-//get user's high scores for the game being played
+// Load and render scores
 const loadScoresFromServer = () => {
+  sendAjax("GET", `/getScores?+&${userGame}`, null, (data) => {
+    console.log(`🔹 Retrieved ${data.scores.length} scores for game: ${userGame}`);
+    console.table(data.scores); // Print scores in table format
 
-    sendAjax("GET", `/getScores?+&${userGame}`, null, data => {
-      ReactDOM.render(
-        <ScoreList scores={data.scores}game={userGame} />,
-        document.querySelector("#yourScores")
-      );
-    });
-  
+    ReactDOM.render(
+      <ScoreList scores={data.scores} game={userGame} />,
+      document.querySelector("#yourScores")
+    );
+  });
 };
 
-//get all high scores for the game being played
+// Load all high scores for the selected game
 const loadAllGameScoresFromServer = () => {
-  sendAjax("GET", `/getAllScores?+&${userGame}`, null, data => {
+  sendAjax("GET", `/getAllScores?+&${userGame}`, null, (data) => {
+    console.log(`🔹 Retrieved ${data.scores.length} total scores for game: ${userGame}`);
+    console.table(data.scores);
+
     ReactDOM.render(
       <ScoreList scores={data.scores} game={userGame} />,
       document.querySelector("#allGameScores")
     );
   });
 };
-//get all high scores for all games
+
+// Load all high scores for all games
 const loadAllScoresFromServer = () => {
-  sendAjax("GET", `/getAllScores?+&flappy`, null, data => {
+  sendAjax("GET", `/getAllScores?+&flappy`, null, (data) => {
+    console.log(`🔹 Retrieved ${data.scores.length} scores for Flappy Box`);
+    console.table(data.scores);
+
     ReactDOM.render(
-      <ScoreList scores={data.scores} game={"flappy"} />,
+      <ScoreList scores={data.scores} game="flappy" />,
       document.querySelector("#allFlappyScores")
     );
   });
 
-  sendAjax("GET", `/getAllScores?+&sviper`, null, data => {
+  sendAjax("GET", `/getAllScores?+&sviper`, null, (data) => {
+    console.log(`🔹 Retrieved ${data.scores.length} scores for Sviper`);
+    console.table(data.scores);
+
     ReactDOM.render(
-      <ScoreList scores={data.scores} game={"sviper"} />,
+      <ScoreList scores={data.scores} game="sviper" />,
       document.querySelector("#allSviperScores")
     );
   });
 };
 
-//render page content 
-const setup = function(csrf) {
-  if (requireAllScores != null) {
+
+// Render page content
+const setup = (csrf) => {
+  if (requireAllScores) {
     ReactDOM.render(<GameCards />, document.querySelector("#gameChoose"));
     loadAllScoresFromServer();
   } else {
-    ReactDOM.render(
-      <ScoreForm csrf={csrf} />,
-      document.querySelector("#makeScore")
-    );
-
-    ReactDOM.render(
-      <ScoreList scores={[]} />,
-      document.querySelector("#allGameScores")
-    );
-
+    ReactDOM.render(<ScoreForm csrf={csrf} />, document.querySelector("#makeScore"));
+    ReactDOM.render(<ScoreList scores={[]} />, document.querySelector("#allGameScores"));
     loadScoresFromServer();
     loadAllGameScoresFromServer();
   }
 };
 
-//get csrf token and call setup function
+// Get CSRF token and call setup function
 const getToken = () => {
-  sendAjax("GET", "/getToken", null, result => {
+  sendAjax("GET", "/getToken", null, (result) => {
     setup(result.csrfToken);
   });
 };
 
-//get csrf token when document loads
-$(document).ready(function() {
+// Initialize on document ready
+$(document).ready(() => {
   getToken();
 });

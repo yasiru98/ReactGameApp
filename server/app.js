@@ -14,7 +14,7 @@ const redis = require('redis');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
-const dbURL = process.env.MONGODB_URI || 'mongodb://localhost/DomoMaker';
+const dbURL = process.env.MONGODB_URI || 'mongodb+srv://yasiru043:Britishmotors1@cluster0.gt0ge.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 // set up mongoDB
 const mongooseOptions = {
   useNewUrlParser: true,
@@ -29,11 +29,11 @@ mongoose.connect(dbURL, mongooseOptions, (err) => {
 });
 // set up redis
 let redisURL = {
-  hostname: 'redis-11212.c8.us-east-1-2.ec2.cloud.redislabs.com',
-  port: 11212,
+  hostname: 'redis-18908.c111.us-east-1-mz.ec2.redns.redis-cloud.com',
+  port: 18908,
 };
 
-let redisPASS = 'ruuaZ1Bh3pSmwMN80RH3xj16wF2RvVBS';
+let redisPASS = 'tTQsC0FM09gAWhddJNbckRBXeFXK1H6H';
 if (process.env.REDISCLOUD_URL) {
   redisURL = url.parse(process.env.REDISCLOUD_URL);
   [, redisPASS] = redisURL.auth.split(':');
