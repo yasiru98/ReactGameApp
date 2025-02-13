@@ -28,7 +28,7 @@ mongoose.connect(dbURL, mongooseOptions, (err) => {
   }
 });
 
-// Redis Configuration
+// Updated Redis Configuration
 let redisClient;
 if (process.env.REDISCLOUD_URL) {
   try {
