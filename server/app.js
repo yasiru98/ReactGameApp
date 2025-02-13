@@ -29,27 +29,30 @@ mongoose.connect(dbURL, mongooseOptions, (err) => {
 });
 
 // Updated Redis Configuration
-let redisClient;
 if (process.env.REDISCLOUD_URL) {
   try {
-    const redisURL = new URL(process.env.REDISCLOUD_URL);
-    
+    const cleanedRedisURL = process.env.REDISCLOUD_URL.trim(); // ✅ Remove extra spaces
+    console.log(`Using REDISCLOUD_URL: ${cleanedRedisURL}`); // Debugging output
+
+    const redisURL = new URL(cleanedRedisURL); // Parse URL safely
+
     redisClient = redis.createClient({
       host: redisURL.hostname,
       port: redisURL.port,
-      password: redisURL.password || '', // Extracted Redis password
+      password: redisURL.password || '',
     });
 
-    redisClient.on('connect', () => console.log('Connected to Redis'));
-    redisClient.on('error', (err) => console.error('Redis Error:', err));
+    redisClient.on('connect', () => console.log('✅ Connected to Redis'));
+    redisClient.on('error', (err) => console.error('❌ Redis Error:', err));
 
   } catch (error) {
-    console.error('Error parsing REDISCLOUD_URL:', error);
-    throw error;
+    console.error('❌ Invalid REDISCLOUD_URL:', process.env.REDISCLOUD_URL);
+    console.error(error);
+    process.exit(1); // 🔴 Stop the app if URL is invalid
   }
 } else {
-  console.error('Missing REDISCLOUD_URL in environment variables');
-  throw new Error('Missing REDISCLOUD_URL');
+  console.error('❌ Missing REDISCLOUD_URL in environment variables');
+  process.exit(1);
 }
 
 // pull in our routes
