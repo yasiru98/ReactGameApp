@@ -14,7 +14,7 @@ const redis = require('redis');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
-const dbURL = process.env.MONGODB_URI || 'mongodb+srv://yasiru043:Britishmotors1@cluster0.gt0ge.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const dbURL = process.env.MONGODB_URI;
 // set up mongoDB
 const mongooseOptions = {
   useNewUrlParser: true,
@@ -31,8 +31,7 @@ mongoose.connect(dbURL, mongooseOptions, (err) => {
 // Updated Redis Configuration
 if (process.env.REDISCLOUD_URL) {
   try {
-    const cleanedRedisURL = process.env.REDISCLOUD_URL.trim(); // ✅ Remove extra spaces
-    console.log(`Using REDISCLOUD_URL: ${cleanedRedisURL}`); // Debugging output
+    const cleanedRedisURL = process.env.REDISCLOUD_URL.trim(); // Remove extra spaces
 
     const redisURL = new URL(cleanedRedisURL); // Parse URL safely
 
@@ -42,16 +41,16 @@ if (process.env.REDISCLOUD_URL) {
       password: redisURL.password || '',
     });
 
-    redisClient.on('connect', () => console.log('✅ Connected to Redis'));
-    redisClient.on('error', (err) => console.error('❌ Redis Error:', err));
+    redisClient.on('connect', () => console.log('Connected to Redis'));
+    redisClient.on('error', (err) => console.error('Redis Error:', err));
 
   } catch (error) {
-    console.error('❌ Invalid REDISCLOUD_URL:', process.env.REDISCLOUD_URL);
+    console.error('Invalid REDISCLOUD_URL');
     console.error(error);
-    process.exit(1); // 🔴 Stop the app if URL is invalid
+    process.exit(1); //  Stop the app if URL is invalid
   }
 } else {
-  console.error('❌ Missing REDISCLOUD_URL in environment variables');
+  console.error('Missing REDISCLOUD_URL in environment variables');
   process.exit(1);
 }
 
