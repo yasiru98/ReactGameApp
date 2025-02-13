@@ -27,22 +27,30 @@ mongoose.connect(dbURL, mongooseOptions, (err) => {
     throw err;
   }
 });
-// set up redis
-let redisURL = {
-  hostname: 'redis-18908.c111.us-east-1-mz.ec2.redns.redis-cloud.com',
-  port: 18908,
-};
 
-let redisPASS = 'tTQsC0FM09gAWhddJNbckRBXeFXK1H6H';
+// Redis Configuration
+let redisClient;
 if (process.env.REDISCLOUD_URL) {
-  redisURL = url.parse(process.env.REDISCLOUD_URL);
-  [, redisPASS] = redisURL.auth.split(':');
+  try {
+    const redisURL = new URL(process.env.REDISCLOUD_URL);
+    
+    redisClient = redis.createClient({
+      host: redisURL.hostname,
+      port: redisURL.port,
+      password: redisURL.password || '', // Extracted Redis password
+    });
+
+    redisClient.on('connect', () => console.log('Connected to Redis'));
+    redisClient.on('error', (err) => console.error('Redis Error:', err));
+
+  } catch (error) {
+    console.error('Error parsing REDISCLOUD_URL:', error);
+    throw error;
+  }
+} else {
+  console.error('Missing REDISCLOUD_URL in environment variables');
+  throw new Error('Missing REDISCLOUD_URL');
 }
-const redisClient = redis.createClient({
-  host: redisURL.hostname,
-  port: redisURL.port,
-  password: redisPASS,
-});
 
 // pull in our routes
 const router = require('./router');
